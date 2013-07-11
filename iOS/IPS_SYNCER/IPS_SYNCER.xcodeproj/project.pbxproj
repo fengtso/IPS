@@ -1,0 +1,510 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E9C95B65178CA6CB00A8C7EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B64178CA6CB00A8C7EE /* UIKit.framework */; };
+		E9C95B67178CA6CB00A8C7EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B66178CA6CB00A8C7EE /* Foundation.framework */; };
+		E9C95B69178CA6CB00A8C7EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B68178CA6CB00A8C7EE /* CoreGraphics.framework */; };
+		E9C95B6F178CA6CB00A8C7EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B6D178CA6CB00A8C7EE /* InfoPlist.strings */; };
+		E9C95B71178CA6CB00A8C7EE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95B70178CA6CB00A8C7EE /* main.m */; };
+		E9C95B75178CA6CB00A8C7EE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95B74178CA6CB00A8C7EE /* AppDelegate.m */; };
+		E9C95B77178CA6CB00A8C7EE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B76178CA6CB00A8C7EE /* Default.png */; };
+		E9C95B79178CA6CB00A8C7EE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B78178CA6CB00A8C7EE /* Default@2x.png */; };
+		E9C95B7B178CA6CB00A8C7EE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B7A178CA6CB00A8C7EE /* Default-568h@2x.png */; };
+		E9C95B7E178CA6CB00A8C7EE /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B7C178CA6CB00A8C7EE /* MainStoryboard_iPhone.storyboard */; };
+		E9C95B81178CA6CB00A8C7EE /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B7F178CA6CB00A8C7EE /* MainStoryboard_iPad.storyboard */; };
+		E9C95B84178CA6CB00A8C7EE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95B83178CA6CB00A8C7EE /* ViewController.m */; };
+		E9C95B8C178CA6CB00A8C7EE /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B8B178CA6CB00A8C7EE /* SenTestingKit.framework */; };
+		E9C95B8D178CA6CB00A8C7EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B64178CA6CB00A8C7EE /* UIKit.framework */; };
+		E9C95B8E178CA6CB00A8C7EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B66178CA6CB00A8C7EE /* Foundation.framework */; };
+		E9C95B96178CA6CB00A8C7EE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B94178CA6CB00A8C7EE /* InfoPlist.strings */; };
+		E9C95B99178CA6CB00A8C7EE /* IPS_SYNCERTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95B98178CA6CB00A8C7EE /* IPS_SYNCERTests.m */; };
+		E9C95BA3178CA6E900A8C7EE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95BA2178CA6E900A8C7EE /* CoreBluetooth.framework */; };
+		E9C95BAC178CD32D00A8C7EE /* CBCentralManagerCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95BAB178CD32D00A8C7EE /* CBCentralManagerCtrl.m */; };
+		E9C95BAF178CD4AC00A8C7EE /* CBPeripheralCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95BAE178CD4AC00A8C7EE /* CBPeripheralCtrl.m */; };
+		E9C95BB2178CDDDA00A8C7EE /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95BB1178CDDDA00A8C7EE /* HomeViewController.m */; };
+		E9C95BB5178CE1CA00A8C7EE /* PeripheralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95BB4178CE1C900A8C7EE /* PeripheralCell.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E9C95B8F178CA6CB00A8C7EE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E9C95B59178CA6CB00A8C7EE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9C95B60178CA6CB00A8C7EE;
+			remoteInfo = IPS_SYNCER;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E9C95B61178CA6CB00A8C7EE /* IPS_SYNCER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPS_SYNCER.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9C95B64178CA6CB00A8C7EE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E9C95B66178CA6CB00A8C7EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E9C95B68178CA6CB00A8C7EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E9C95B6C178CA6CB00A8C7EE /* IPS_SYNCER-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IPS_SYNCER-Info.plist"; sourceTree = "<group>"; };
+		E9C95B6E178CA6CB00A8C7EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E9C95B70178CA6CB00A8C7EE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E9C95B72178CA6CB00A8C7EE /* IPS_SYNCER-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IPS_SYNCER-Prefix.pch"; sourceTree = "<group>"; };
+		E9C95B73178CA6CB00A8C7EE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E9C95B74178CA6CB00A8C7EE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E9C95B76178CA6CB00A8C7EE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		E9C95B78178CA6CB00A8C7EE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		E9C95B7A178CA6CB00A8C7EE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		E9C95B7D178CA6CB00A8C7EE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		E9C95B80178CA6CB00A8C7EE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		E9C95B82178CA6CB00A8C7EE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		E9C95B83178CA6CB00A8C7EE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		E9C95B8A178CA6CB00A8C7EE /* IPS_SYNCERTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IPS_SYNCERTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9C95B8B178CA6CB00A8C7EE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		E9C95B93178CA6CB00A8C7EE /* IPS_SYNCERTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IPS_SYNCERTests-Info.plist"; sourceTree = "<group>"; };
+		E9C95B95178CA6CB00A8C7EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E9C95B97178CA6CB00A8C7EE /* IPS_SYNCERTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IPS_SYNCERTests.h; sourceTree = "<group>"; };
+		E9C95B98178CA6CB00A8C7EE /* IPS_SYNCERTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IPS_SYNCERTests.m; sourceTree = "<group>"; };
+		E9C95BA2178CA6E900A8C7EE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		E9C95BAA178CD32D00A8C7EE /* CBCentralManagerCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCentralManagerCtrl.h; sourceTree = "<group>"; };
+		E9C95BAB178CD32D00A8C7EE /* CBCentralManagerCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCentralManagerCtrl.m; sourceTree = "<group>"; };
+		E9C95BAD178CD4AC00A8C7EE /* CBPeripheralCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPeripheralCtrl.h; sourceTree = "<group>"; };
+		E9C95BAE178CD4AC00A8C7EE /* CBPeripheralCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPeripheralCtrl.m; sourceTree = "<group>"; };
+		E9C95BB0178CDDDA00A8C7EE /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		E9C95BB1178CDDDA00A8C7EE /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		E9C95BB3178CE1C900A8C7EE /* PeripheralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralCell.h; sourceTree = "<group>"; };
+		E9C95BB4178CE1C900A8C7EE /* PeripheralCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PeripheralCell.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E9C95B5E178CA6CB00A8C7EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9C95BA3178CA6E900A8C7EE /* CoreBluetooth.framework in Frameworks */,
+				E9C95B65178CA6CB00A8C7EE /* UIKit.framework in Frameworks */,
+				E9C95B67178CA6CB00A8C7EE /* Foundation.framework in Frameworks */,
+				E9C95B69178CA6CB00A8C7EE /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9C95B86178CA6CB00A8C7EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9C95B8C178CA6CB00A8C7EE /* SenTestingKit.framework in Frameworks */,
+				E9C95B8D178CA6CB00A8C7EE /* UIKit.framework in Frameworks */,
+				E9C95B8E178CA6CB00A8C7EE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E9C95B58178CA6CB00A8C7EE = {
+			isa = PBXGroup;
+			children = (
+				E9C95B6A178CA6CB00A8C7EE /* IPS_SYNCER */,
+				E9C95B91178CA6CB00A8C7EE /* IPS_SYNCERTests */,
+				E9C95B63178CA6CB00A8C7EE /* Frameworks */,
+				E9C95B62178CA6CB00A8C7EE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E9C95B62178CA6CB00A8C7EE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E9C95B61178CA6CB00A8C7EE /* IPS_SYNCER.app */,
+				E9C95B8A178CA6CB00A8C7EE /* IPS_SYNCERTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E9C95B63178CA6CB00A8C7EE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E9C95BA2178CA6E900A8C7EE /* CoreBluetooth.framework */,
+				E9C95B64178CA6CB00A8C7EE /* UIKit.framework */,
+				E9C95B66178CA6CB00A8C7EE /* Foundation.framework */,
+				E9C95B68178CA6CB00A8C7EE /* CoreGraphics.framework */,
+				E9C95B8B178CA6CB00A8C7EE /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E9C95B6A178CA6CB00A8C7EE /* IPS_SYNCER */ = {
+			isa = PBXGroup;
+			children = (
+				E9C95B73178CA6CB00A8C7EE /* AppDelegate.h */,
+				E9C95B74178CA6CB00A8C7EE /* AppDelegate.m */,
+				E9C95B7C178CA6CB00A8C7EE /* MainStoryboard_iPhone.storyboard */,
+				E9C95B7F178CA6CB00A8C7EE /* MainStoryboard_iPad.storyboard */,
+				E9C95B82178CA6CB00A8C7EE /* ViewController.h */,
+				E9C95B83178CA6CB00A8C7EE /* ViewController.m */,
+				E9C95B6B178CA6CB00A8C7EE /* Supporting Files */,
+				E9C95BAA178CD32D00A8C7EE /* CBCentralManagerCtrl.h */,
+				E9C95BAB178CD32D00A8C7EE /* CBCentralManagerCtrl.m */,
+				E9C95BAD178CD4AC00A8C7EE /* CBPeripheralCtrl.h */,
+				E9C95BAE178CD4AC00A8C7EE /* CBPeripheralCtrl.m */,
+				E9C95BB0178CDDDA00A8C7EE /* HomeViewController.h */,
+				E9C95BB1178CDDDA00A8C7EE /* HomeViewController.m */,
+				E9C95BB3178CE1C900A8C7EE /* PeripheralCell.h */,
+				E9C95BB4178CE1C900A8C7EE /* PeripheralCell.m */,
+			);
+			path = IPS_SYNCER;
+			sourceTree = "<group>";
+		};
+		E9C95B6B178CA6CB00A8C7EE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E9C95B6C178CA6CB00A8C7EE /* IPS_SYNCER-Info.plist */,
+				E9C95B6D178CA6CB00A8C7EE /* InfoPlist.strings */,
+				E9C95B70178CA6CB00A8C7EE /* main.m */,
+				E9C95B72178CA6CB00A8C7EE /* IPS_SYNCER-Prefix.pch */,
+				E9C95B76178CA6CB00A8C7EE /* Default.png */,
+				E9C95B78178CA6CB00A8C7EE /* Default@2x.png */,
+				E9C95B7A178CA6CB00A8C7EE /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E9C95B91178CA6CB00A8C7EE /* IPS_SYNCERTests */ = {
+			isa = PBXGroup;
+			children = (
+				E9C95B97178CA6CB00A8C7EE /* IPS_SYNCERTests.h */,
+				E9C95B98178CA6CB00A8C7EE /* IPS_SYNCERTests.m */,
+				E9C95B92178CA6CB00A8C7EE /* Supporting Files */,
+			);
+			path = IPS_SYNCERTests;
+			sourceTree = "<group>";
+		};
+		E9C95B92178CA6CB00A8C7EE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E9C95B93178CA6CB00A8C7EE /* IPS_SYNCERTests-Info.plist */,
+				E9C95B94178CA6CB00A8C7EE /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E9C95B60178CA6CB00A8C7EE /* IPS_SYNCER */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9C95B9C178CA6CB00A8C7EE /* Build configuration list for PBXNativeTarget "IPS_SYNCER" */;
+			buildPhases = (
+				E9C95B5D178CA6CB00A8C7EE /* Sources */,
+				E9C95B5E178CA6CB00A8C7EE /* Frameworks */,
+				E9C95B5F178CA6CB00A8C7EE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IPS_SYNCER;
+			productName = IPS_SYNCER;
+			productReference = E9C95B61178CA6CB00A8C7EE /* IPS_SYNCER.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E9C95B89178CA6CB00A8C7EE /* IPS_SYNCERTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9C95B9F178CA6CB00A8C7EE /* Build configuration list for PBXNativeTarget "IPS_SYNCERTests" */;
+			buildPhases = (
+				E9C95B85178CA6CB00A8C7EE /* Sources */,
+				E9C95B86178CA6CB00A8C7EE /* Frameworks */,
+				E9C95B87178CA6CB00A8C7EE /* Resources */,
+				E9C95B88178CA6CB00A8C7EE /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E9C95B90178CA6CB00A8C7EE /* PBXTargetDependency */,
+			);
+			name = IPS_SYNCERTests;
+			productName = IPS_SYNCERTests;
+			productReference = E9C95B8A178CA6CB00A8C7EE /* IPS_SYNCERTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E9C95B59178CA6CB00A8C7EE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = "CMU SV";
+			};
+			buildConfigurationList = E9C95B5C178CA6CB00A8C7EE /* Build configuration list for PBXProject "IPS_SYNCER" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E9C95B58178CA6CB00A8C7EE;
+			productRefGroup = E9C95B62178CA6CB00A8C7EE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E9C95B60178CA6CB00A8C7EE /* IPS_SYNCER */,
+				E9C95B89178CA6CB00A8C7EE /* IPS_SYNCERTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E9C95B5F178CA6CB00A8C7EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9C95B6F178CA6CB00A8C7EE /* InfoPlist.strings in Resources */,
+				E9C95B77178CA6CB00A8C7EE /* Default.png in Resources */,
+				E9C95B79178CA6CB00A8C7EE /* Default@2x.png in Resources */,
+				E9C95B7B178CA6CB00A8C7EE /* Default-568h@2x.png in Resources */,
+				E9C95B7E178CA6CB00A8C7EE /* MainStoryboard_iPhone.storyboard in Resources */,
+				E9C95B81178CA6CB00A8C7EE /* MainStoryboard_iPad.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9C95B87178CA6CB00A8C7EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9C95B96178CA6CB00A8C7EE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E9C95B88178CA6CB00A8C7EE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E9C95B5D178CA6CB00A8C7EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9C95B71178CA6CB00A8C7EE /* main.m in Sources */,
+				E9C95B75178CA6CB00A8C7EE /* AppDelegate.m in Sources */,
+				E9C95B84178CA6CB00A8C7EE /* ViewController.m in Sources */,
+				E9C95BAC178CD32D00A8C7EE /* CBCentralManagerCtrl.m in Sources */,
+				E9C95BAF178CD4AC00A8C7EE /* CBPeripheralCtrl.m in Sources */,
+				E9C95BB2178CDDDA00A8C7EE /* HomeViewController.m in Sources */,
+				E9C95BB5178CE1CA00A8C7EE /* PeripheralCell.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9C95B85178CA6CB00A8C7EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9C95B99178CA6CB00A8C7EE /* IPS_SYNCERTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E9C95B90178CA6CB00A8C7EE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E9C95B60178CA6CB00A8C7EE /* IPS_SYNCER */;
+			targetProxy = E9C95B8F178CA6CB00A8C7EE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E9C95B6D178CA6CB00A8C7EE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9C95B6E178CA6CB00A8C7EE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E9C95B7C178CA6CB00A8C7EE /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9C95B7D178CA6CB00A8C7EE /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		E9C95B7F178CA6CB00A8C7EE /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9C95B80178CA6CB00A8C7EE /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		E9C95B94178CA6CB00A8C7EE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9C95B95178CA6CB00A8C7EE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E9C95B9A178CA6CB00A8C7EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E9C95B9B178CA6CB00A8C7EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E9C95B9D178CA6CB00A8C7EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IPS_SYNCER/IPS_SYNCER-Prefix.pch";
+				INFOPLIST_FILE = "IPS_SYNCER/IPS_SYNCER-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E9C95B9E178CA6CB00A8C7EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IPS_SYNCER/IPS_SYNCER-Prefix.pch";
+				INFOPLIST_FILE = "IPS_SYNCER/IPS_SYNCER-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E9C95BA0178CA6CB00A8C7EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/IPS_SYNCER.app/IPS_SYNCER";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IPS_SYNCER/IPS_SYNCER-Prefix.pch";
+				INFOPLIST_FILE = "IPS_SYNCERTests/IPS_SYNCERTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E9C95BA1178CA6CB00A8C7EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/IPS_SYNCER.app/IPS_SYNCER";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
+					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "IPS_SYNCER/IPS_SYNCER-Prefix.pch";
+				INFOPLIST_FILE = "IPS_SYNCERTests/IPS_SYNCERTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E9C95B5C178CA6CB00A8C7EE /* Build configuration list for PBXProject "IPS_SYNCER" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9C95B9A178CA6CB00A8C7EE /* Debug */,
+				E9C95B9B178CA6CB00A8C7EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9C95B9C178CA6CB00A8C7EE /* Build configuration list for PBXNativeTarget "IPS_SYNCER" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9C95B9D178CA6CB00A8C7EE /* Debug */,
+				E9C95B9E178CA6CB00A8C7EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E9C95B9F178CA6CB00A8C7EE /* Build configuration list for PBXNativeTarget "IPS_SYNCERTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9C95BA0178CA6CB00A8C7EE /* Debug */,
+				E9C95BA1178CA6CB00A8C7EE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E9C95B59178CA6CB00A8C7EE /* Project object */;
+}

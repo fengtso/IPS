@@ -1,0 +1,49 @@
+10
+
+dir
+0
+http://www.cmusv.mobi/svn/ips-ir/trunk/iOS/IPS_SYNCER/IPS_SYNCER/en.lproj
+http://www.cmusv.mobi/svn/ips-ir
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8edbcdc7-e63c-4d30-8af0-41083aecf8e2
+
+InfoPlist.strings
+file
+
+
+
+add
+
+MainStoryboard_iPad.storyboard
+file
+
+
+
+add
+
+MainStoryboard_iPhone.storyboard
+file
+
+
+
+add
+

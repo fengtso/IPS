@@ -1,0 +1,56 @@
+10
+
+dir
+0
+http://www.cmusv.mobi/svn/ips-ir/trunk/iOS/IPS_SYNCER/IPS_SYNCERTests
+http://www.cmusv.mobi/svn/ips-ir
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8edbcdc7-e63c-4d30-8af0-41083aecf8e2
+
+IPS_SYNCERTests-Info.plist
+file
+
+
+
+add
+
+en.lproj
+dir
+
+
+
+add
+
+IPS_SYNCERTests.h
+file
+
+
+
+add
+
+IPS_SYNCERTests.m
+file
+
+
+
+add
+

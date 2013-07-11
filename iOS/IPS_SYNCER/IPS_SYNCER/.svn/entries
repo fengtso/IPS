@@ -1,0 +1,182 @@
+10
+
+dir
+0
+http://www.cmusv.mobi/svn/ips-ir/trunk/iOS/IPS_SYNCER/IPS_SYNCER
+http://www.cmusv.mobi/svn/ips-ir
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8edbcdc7-e63c-4d30-8af0-41083aecf8e2
+
+main.m
+file
+
+
+
+add
+
+CBPeripheralCtrl.m
+file
+
+
+
+add
+
+PeripheralCell.h
+file
+
+
+
+add
+
+Default@2x.png
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+IPS_SYNCER-Prefix.pch
+file
+
+
+
+add
+
+HomeViewController.m
+file
+
+
+
+add
+
+PeripheralCell.m
+file
+
+
+
+add
+
+en.lproj
+dir
+
+
+
+add
+
+IPS_SYNCER-Info.plist
+file
+
+
+
+add
+
+AppDelegate.h
+file
+
+
+
+add
+
+CBCentralManagerCtrl.h
+file
+
+
+
+add
+
+ViewController.h
+file
+
+
+
+add
+
+AppDelegate.m
+file
+
+
+
+add
+
+Default.png
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+CBCentralManagerCtrl.m
+file
+
+
+
+add
+
+Default-568h@2x.png
+file
+
+
+
+add
+
+
+
+
+
+has-props
+has-prop-mods
+
+ViewController.m
+file
+
+
+
+add
+
+CBPeripheralCtrl.h
+file
+
+
+
+add
+
+HomeViewController.h
+file
+
+
+
+add
+
