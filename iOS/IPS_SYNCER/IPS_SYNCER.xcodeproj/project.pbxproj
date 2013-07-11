@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E962E780178F3479004DE634 /* PacketParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E962E77F178F3479004DE634 /* PacketParser.m */; };
 		E9C95B65178CA6CB00A8C7EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B64178CA6CB00A8C7EE /* UIKit.framework */; };
 		E9C95B67178CA6CB00A8C7EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B66178CA6CB00A8C7EE /* Foundation.framework */; };
 		E9C95B69178CA6CB00A8C7EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B68178CA6CB00A8C7EE /* CoreGraphics.framework */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E962E77E178F3479004DE634 /* PacketParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketParser.h; sourceTree = "<group>"; };
+		E962E77F178F3479004DE634 /* PacketParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PacketParser.m; sourceTree = "<group>"; };
 		E9C95B61178CA6CB00A8C7EE /* IPS_SYNCER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPS_SYNCER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C95B64178CA6CB00A8C7EE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E9C95B66178CA6CB00A8C7EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,6 +153,8 @@
 				E9C95BB1178CDDDA00A8C7EE /* HomeViewController.m */,
 				E9C95BB3178CE1C900A8C7EE /* PeripheralCell.h */,
 				E9C95BB4178CE1C900A8C7EE /* PeripheralCell.m */,
+				E962E77E178F3479004DE634 /* PacketParser.h */,
+				E962E77F178F3479004DE634 /* PacketParser.m */,
 			);
 			path = IPS_SYNCER;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 				E9C95BAF178CD4AC00A8C7EE /* CBPeripheralCtrl.m in Sources */,
 				E9C95BB2178CDDDA00A8C7EE /* HomeViewController.m in Sources */,
 				E9C95BB5178CE1CA00A8C7EE /* PeripheralCell.m in Sources */,
+				E962E780178F3479004DE634 /* PacketParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +501,7 @@
 				E9C95B9E178CA6CB00A8C7EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E9C95B9F178CA6CB00A8C7EE /* Build configuration list for PBXNativeTarget "IPS_SYNCERTests" */ = {
 			isa = XCConfigurationList;
@@ -503,6 +510,7 @@
 				E9C95BA1178CA6CB00A8C7EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

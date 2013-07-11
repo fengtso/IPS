@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CBCentralManagerCtrl.h"
 #import "CBPeripheralCtrl.h"
+#import "PacketParser.h"
 
 @interface HomeViewController : UIViewController <CBPeripheralDelegate, CBCentralManagerCtrlDelegate, CBPeripheralCtrlDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate>
 {
@@ -17,6 +18,8 @@
     
     NSDictionary *serviceNames;
     CBCharacteristic *homevc_characteristic;
+    
+    PacketParser* packet_parser;
 }
 
 
