@@ -55,7 +55,8 @@
 - (NSData*) create_packet:(int)packet_type :(NSString*)seq_num
 {
     NSMutableData *packet = [[NSMutableData alloc] initWithCapacity:20];
-    unsigned char BOF[]= {0xC0};
+    unsigned char BOF[] = {0xC0};
+    unsigned char EEOF[] = {0xC1};
     unsigned char inquiry_packet_type[] = {0xCC};
     unsigned char ack_packet_type[] = {0xDD};
     unsigned char nack_packet_type[] = {0xEE};
@@ -71,7 +72,7 @@
             [packet appendBytes:inquiry_packet_type length:1];
             [packet appendBytes:loc_packet_type length:1];
             
-            for (int i = 0; i < 17; i++) {
+            for (int i = 0; i < 16; i++) {
                 [packet appendBytes:dummy_bytes length:1];
             }
             break;
@@ -80,31 +81,38 @@
             [packet appendBytes:inquiry_packet_type length:1];
             [packet appendBytes:imu_packet_type length:1];
             
-            for (int i = 0; i < 17; i++) {
+            for (int i = 0; i < 16; i++) {
                 [packet appendBytes:dummy_bytes length:1];
             }
             break;
             
         case 3:
             [packet appendBytes:ack_packet_type length:1];
+            [packet appendBytes:loc_packet_type length:1];
+
             seq_num_intvalue = [seq_num intValue];
             [packet appendBytes:&seq_num_intvalue length:sizeof(int)];
-            for (int i = 0; i < 14; i++) {
+
+            for (int i = 0; i < 12; i++) {
                 [packet appendBytes:dummy_bytes length:1];
             }
             break;
             
         case 4:
             [packet appendBytes:nack_packet_type length:1];
+            [packet appendBytes:loc_packet_type length:1];
+
              seq_num_intvalue = [seq_num intValue];
             [packet appendBytes:&seq_num_intvalue length:sizeof(int)];
-            for (int i = 0; i < 14; i++) {
+            for (int i = 0; i < 12; i++) {
                 [packet appendBytes:dummy_bytes length:1];
             }
             break;
         default:
             break;
     }
+    
+    [packet appendBytes:EEOF length:1];
 
     return packet;
 }

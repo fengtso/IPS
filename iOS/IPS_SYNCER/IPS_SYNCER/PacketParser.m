@@ -12,6 +12,8 @@
 
 - (void) add_bytes:(NSData *)incoming_data
 {
+    char BOF = 0xC0;
+    
     NSLog(@"adding bytes:%@", incoming_data);
     
     for (int i = 0; i < [incoming_data length]; i++) {
@@ -20,7 +22,11 @@
         // Extract one byte
         [incoming_data getBytes:&curr_byte range:NSMakeRange(i, 1)];
 
-        // Read Byte 
+        // Find BOF
+        if ((curr_byte & 0xFF) == BOF) {
+            byte_counter = 0;
+            NSLog(@"%@", incoming_data);
+        }
     }
     
 }
