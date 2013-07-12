@@ -10,30 +10,84 @@
 
 @implementation PacketParser
 
+const unsigned char BOF = 0xc0;
+const unsigned char EEOF = 0xc1;
+const unsigned char loc_packet_type = 0xaa;
+const unsigned char imu_packet_type = 0xbb;
+const unsigned char start_packet_type = 0xf0;
+const unsigned char end_packet_type = 0xf1;
+
 - (void) add_bytes:(NSData *)incoming_data
 {
-    char BOF = 0xC0;
-    
-    NSLog(@"adding bytes:%@", incoming_data);
-    
+    //NSLog(@"adding bytes:%@", incoming_data);
     for (int i = 0; i < [incoming_data length]; i++) {
-        Byte curr_byte;
+        char curr_byte;
         
         // Extract one byte
         [incoming_data getBytes:&curr_byte range:NSMakeRange(i, 1)];
 
         // Find BOF
-        if ((curr_byte & 0xFF) == BOF) {
+        if ((curr_byte & 0xff) == BOF) {
             byte_counter = 0;
-            NSLog(@"%@", incoming_data);
+        }
+        
+        // Append byte
+        rx_buff[byte_counter] = (curr_byte & 0xff);
+        byte_counter++;
+        
+        // Check EOF
+        if((curr_byte & 0xff) == EEOF && byte_counter == RX_BUFF_LEN){
+            NSData* packetData = [[NSData alloc] initWithBytes:rx_buff length: RX_BUFF_LEN];
+            NSLog(@"valid packet=%@", packetData);
+            [self process_packet:packetData];
         }
     }
-    
 }
 
-- (BOOL) is_packet_ready
+- (void) set_device_uuid:(NSString *) uuid;
 {
-    return FALSE;
+    device_uuid = uuid;
+    NSLog(@"setting device_uuid=%@", device_uuid);
+    byte_counter = 0;
+}
+
+- (void) process_packet:(NSData *) packetData
+{    
+    // Get packet type
+    unsigned char packet_type;
+    [packetData getBytes:&packet_type range:NSMakeRange(1, 1)];
+    
+    NSMutableArray *keys;
+    NSMutableArray *objects;
+    NSDictionary *dictionary;
+    
+    switch (packet_type) {
+        case start_packet_type:
+            
+
+            break;
+            
+        case end_packet_type:
+            
+            break;
+            
+        case loc_packet_type:
+            keys = [NSArray arrayWithObjects:@"key1", @"key2", nil];
+            objects = [NSArray arrayWithObjects:@"value1", @"value2", nil];
+            dictionary = [NSDictionary dictionaryWithObjects:objects
+                                                                   forKeys:keys];
+            [self.delegate didReceivePacket:@"loc_packet" :dictionary];
+
+            break;
+            
+        case imu_packet_type:
+
+            break;
+            
+        default:
+            break;
+    }
+    
 }
 
 @end

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E962E780178F3479004DE634 /* PacketParser.m in Sources */ = {isa = PBXBuildFile; fileRef = E962E77F178F3479004DE634 /* PacketParser.m */; };
+		E962E783178F7E21004DE634 /* SensorToServerStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = E962E782178F7E21004DE634 /* SensorToServerStateMachine.m */; };
 		E9C95B65178CA6CB00A8C7EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B64178CA6CB00A8C7EE /* UIKit.framework */; };
 		E9C95B67178CA6CB00A8C7EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B66178CA6CB00A8C7EE /* Foundation.framework */; };
 		E9C95B69178CA6CB00A8C7EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B68178CA6CB00A8C7EE /* CoreGraphics.framework */; };
@@ -19,7 +20,6 @@
 		E9C95B7B178CA6CB00A8C7EE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B7A178CA6CB00A8C7EE /* Default-568h@2x.png */; };
 		E9C95B7E178CA6CB00A8C7EE /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B7C178CA6CB00A8C7EE /* MainStoryboard_iPhone.storyboard */; };
 		E9C95B81178CA6CB00A8C7EE /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C95B7F178CA6CB00A8C7EE /* MainStoryboard_iPad.storyboard */; };
-		E9C95B84178CA6CB00A8C7EE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95B83178CA6CB00A8C7EE /* ViewController.m */; };
 		E9C95B8C178CA6CB00A8C7EE /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B8B178CA6CB00A8C7EE /* SenTestingKit.framework */; };
 		E9C95B8D178CA6CB00A8C7EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B64178CA6CB00A8C7EE /* UIKit.framework */; };
 		E9C95B8E178CA6CB00A8C7EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95B66178CA6CB00A8C7EE /* Foundation.framework */; };
@@ -27,7 +27,6 @@
 		E9C95B99178CA6CB00A8C7EE /* IPS_SYNCERTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95B98178CA6CB00A8C7EE /* IPS_SYNCERTests.m */; };
 		E9C95BA3178CA6E900A8C7EE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C95BA2178CA6E900A8C7EE /* CoreBluetooth.framework */; };
 		E9C95BAC178CD32D00A8C7EE /* CBCentralManagerCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95BAB178CD32D00A8C7EE /* CBCentralManagerCtrl.m */; };
-		E9C95BAF178CD4AC00A8C7EE /* CBPeripheralCtrl.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95BAE178CD4AC00A8C7EE /* CBPeripheralCtrl.m */; };
 		E9C95BB2178CDDDA00A8C7EE /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95BB1178CDDDA00A8C7EE /* HomeViewController.m */; };
 		E9C95BB5178CE1CA00A8C7EE /* PeripheralCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C95BB4178CE1C900A8C7EE /* PeripheralCell.m */; };
 /* End PBXBuildFile section */
@@ -45,6 +44,8 @@
 /* Begin PBXFileReference section */
 		E962E77E178F3479004DE634 /* PacketParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PacketParser.h; sourceTree = "<group>"; };
 		E962E77F178F3479004DE634 /* PacketParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PacketParser.m; sourceTree = "<group>"; };
+		E962E781178F7E21004DE634 /* SensorToServerStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorToServerStateMachine.h; sourceTree = "<group>"; };
+		E962E782178F7E21004DE634 /* SensorToServerStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorToServerStateMachine.m; sourceTree = "<group>"; };
 		E9C95B61178CA6CB00A8C7EE /* IPS_SYNCER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IPS_SYNCER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C95B64178CA6CB00A8C7EE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E9C95B66178CA6CB00A8C7EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -60,8 +61,6 @@
 		E9C95B7A178CA6CB00A8C7EE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E9C95B7D178CA6CB00A8C7EE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		E9C95B80178CA6CB00A8C7EE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		E9C95B82178CA6CB00A8C7EE /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		E9C95B83178CA6CB00A8C7EE /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E9C95B8A178CA6CB00A8C7EE /* IPS_SYNCERTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IPS_SYNCERTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C95B8B178CA6CB00A8C7EE /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		E9C95B93178CA6CB00A8C7EE /* IPS_SYNCERTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "IPS_SYNCERTests-Info.plist"; sourceTree = "<group>"; };
@@ -71,8 +70,6 @@
 		E9C95BA2178CA6E900A8C7EE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		E9C95BAA178CD32D00A8C7EE /* CBCentralManagerCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBCentralManagerCtrl.h; sourceTree = "<group>"; };
 		E9C95BAB178CD32D00A8C7EE /* CBCentralManagerCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBCentralManagerCtrl.m; sourceTree = "<group>"; };
-		E9C95BAD178CD4AC00A8C7EE /* CBPeripheralCtrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPeripheralCtrl.h; sourceTree = "<group>"; };
-		E9C95BAE178CD4AC00A8C7EE /* CBPeripheralCtrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPeripheralCtrl.m; sourceTree = "<group>"; };
 		E9C95BB0178CDDDA00A8C7EE /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		E9C95BB1178CDDDA00A8C7EE /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		E9C95BB3178CE1C900A8C7EE /* PeripheralCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeripheralCell.h; sourceTree = "<group>"; };
@@ -142,19 +139,17 @@
 				E9C95B74178CA6CB00A8C7EE /* AppDelegate.m */,
 				E9C95B7C178CA6CB00A8C7EE /* MainStoryboard_iPhone.storyboard */,
 				E9C95B7F178CA6CB00A8C7EE /* MainStoryboard_iPad.storyboard */,
-				E9C95B82178CA6CB00A8C7EE /* ViewController.h */,
-				E9C95B83178CA6CB00A8C7EE /* ViewController.m */,
 				E9C95B6B178CA6CB00A8C7EE /* Supporting Files */,
 				E9C95BAA178CD32D00A8C7EE /* CBCentralManagerCtrl.h */,
 				E9C95BAB178CD32D00A8C7EE /* CBCentralManagerCtrl.m */,
-				E9C95BAD178CD4AC00A8C7EE /* CBPeripheralCtrl.h */,
-				E9C95BAE178CD4AC00A8C7EE /* CBPeripheralCtrl.m */,
 				E9C95BB0178CDDDA00A8C7EE /* HomeViewController.h */,
 				E9C95BB1178CDDDA00A8C7EE /* HomeViewController.m */,
 				E9C95BB3178CE1C900A8C7EE /* PeripheralCell.h */,
 				E9C95BB4178CE1C900A8C7EE /* PeripheralCell.m */,
 				E962E77E178F3479004DE634 /* PacketParser.h */,
 				E962E77F178F3479004DE634 /* PacketParser.m */,
+				E962E781178F7E21004DE634 /* SensorToServerStateMachine.h */,
+				E962E782178F7E21004DE634 /* SensorToServerStateMachine.m */,
 			);
 			path = IPS_SYNCER;
 			sourceTree = "<group>";
@@ -305,12 +300,11 @@
 			files = (
 				E9C95B71178CA6CB00A8C7EE /* main.m in Sources */,
 				E9C95B75178CA6CB00A8C7EE /* AppDelegate.m in Sources */,
-				E9C95B84178CA6CB00A8C7EE /* ViewController.m in Sources */,
 				E9C95BAC178CD32D00A8C7EE /* CBCentralManagerCtrl.m in Sources */,
-				E9C95BAF178CD4AC00A8C7EE /* CBPeripheralCtrl.m in Sources */,
 				E9C95BB2178CDDDA00A8C7EE /* HomeViewController.m in Sources */,
 				E9C95BB5178CE1CA00A8C7EE /* PeripheralCell.m in Sources */,
 				E962E780178F3479004DE634 /* PacketParser.m in Sources */,
+				E962E783178F7E21004DE634 /* SensorToServerStateMachine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

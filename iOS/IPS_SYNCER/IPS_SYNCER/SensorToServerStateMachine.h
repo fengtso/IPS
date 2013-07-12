@@ -1,0 +1,42 @@
+//
+//  SensorToServerStateMachine.h
+//  IPS_SYNCER
+//
+//  Created by Lucas Sun on 7/11/13.
+//  Copyright (c) 2013 CMU SV. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "CBCentralManagerCtrl.h"
+#import "PacketParser.h"
+#import "PeripheralCell.h"
+
+@protocol SensorToServerStateMachineDelegate <NSObject>
+@required
+- (void) updateSMLog:(NSString *) text;
+- (void) discoveredPeripheral:(NSMutableArray *)discovered_peripherals;
+@end
+
+@interface SensorToServerStateMachine : NSObject <CBCentralManagerCtrlDelegate, CBPeripheralDelegate, PacketParserDelegate>
+{
+    NSString *curr_state;
+    CBCentralManagerCtrl *CBCMCtrl;
+    CBPeripheral *connected_peripheral;
+    NSMutableArray *discovered_peripherals;
+    
+    PacketParser *packet_parser;
+    NSDictionary *serviceNames;
+    CBCharacteristic *state_machine_characteristics;
+}
+
+@property (nonatomic, assign) id<SensorToServerStateMachineDelegate> delegate;
+@property (strong,nonatomic) CBCentralManagerCtrl *CBCMCtrl;
+
+- (void) send_data_to_server:(NSDictionary *)data_fields;
+- (void) send_inquiry_to_sensor:(NSString *)inquiry_packet_type;
+- (void) send_ack_to_sensor:(NSString *)ack_packet_type;
+- (void) send_nack_to_sensor:(NSString *) nack_packet_type :(NSNumber *)sequence_num;
+- (void) start_scan_peripheral;
+- (void) stop_scan_peripheral;
+
+@end

@@ -10,13 +10,22 @@
 
 #define RX_BUFF_LEN  20
 
+@protocol PacketParserDelegate <NSObject>
+@required
+- (void) didReceivePacket:(NSString *)packet_type :(NSDictionary *)data_fields;
+@end
+
 @interface PacketParser : NSObject
 {
     int byte_counter;
     char rx_buff[RX_BUFF_LEN];
+    NSString* device_uuid;
+    int curr_uptime;
 }
 
 - (void) add_bytes:(NSData *) incoming_data;
-- (BOOL) is_packet_ready;
+- (void) set_device_uuid:(NSString *) uuid;
+
+@property (nonatomic,assign) id<PacketParserDelegate> delegate;
 
 @end

@@ -7,24 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CBCentralManagerCtrl.h"
-#import "CBPeripheralCtrl.h"
 #import "PacketParser.h"
+#import "SensorToServerStateMachine.h"
 
-@interface HomeViewController : UIViewController <CBPeripheralDelegate, CBCentralManagerCtrlDelegate, CBPeripheralCtrlDelegate, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate>
+@interface HomeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UITextViewDelegate, UITextFieldDelegate, SensorToServerStateMachineDelegate>
 {
     NSMutableArray *peripherals;
-    CBPeripheral *connected_peripheral;
-    
-    NSDictionary *serviceNames;
-    CBCharacteristic *homevc_characteristic;
-    
-    PacketParser* packet_parser;
+    SensorToServerStateMachine *state_machine;
 }
 
 
-@property (strong,nonatomic) CBCentralManagerCtrl *CBCMCtrl;
-@property (strong,nonatomic) CBPeripheralCtrl *CBPCtrl;
 @property (strong, nonatomic) IBOutlet UITableView* scannedResultTable;
 @property (strong, nonatomic) IBOutlet UITextView *dbgTextView;
 @property (strong, nonatomic) IBOutlet UITextField *seqNumTextField;
