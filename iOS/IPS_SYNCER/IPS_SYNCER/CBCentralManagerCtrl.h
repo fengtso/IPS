@@ -15,6 +15,7 @@
 - (void) updateCMLog:(NSString *)text;
 - (void) foundPeripheral:(CBPeripheral *)peripheral :(NSNumber *)RSSI :(NSDictionary *)advertisementData;
 - (void) connectedPeripheral:(CBPeripheral *)peripheral;
+- (void) disconnectedPeripheral:(CBPeripheral *)peripheral;
 
 @end
 

@@ -63,6 +63,7 @@
     NSLog(@"Disconnected from peripheral: %@ with UUID: %@",peripheral,peripheral.UUID);
     [self.delegate updateCMLog:[NSString stringWithFormat:@"Disconnected from peripheral: %@ with UUID: %@",peripheral,peripheral.UUID]];
     //Do something when a peripheral is disconnected.
+    [self.delegate disconnectedPeripheral:peripheral];
 }
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
     NSLog(@"Connection failed to peripheral: %@ with UUID: %@",peripheral,peripheral.UUID);

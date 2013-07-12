@@ -49,10 +49,14 @@
 - (IBAction)scanButtonPressed:(id)sender {
     [peripherals removeAllObjects];
     [scannedResultTable reloadData];
-    [state_machine start_scan_peripheral];
+}
+
+- (IBAction)startButtonPressed:(id)sender {
+    [state_machine update_state:@"start_rest"];
 }
 
 - (IBAction)sendButtonPressed:(id)sender {
+    
     
     UIButton* btn = (UIButton*)sender;
     

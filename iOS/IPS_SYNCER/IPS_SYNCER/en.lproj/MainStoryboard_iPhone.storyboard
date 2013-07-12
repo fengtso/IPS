@@ -30,7 +30,7 @@
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoQ-9g-FPT">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="IMU">
+                                <state key="normal" title="Start">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -38,7 +38,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="sendButtonPressed:" destination="2" eventType="touchUpInside" id="MKW-wd-OOq"/>
+                                    <action selector="startButtonPressed:" destination="2" eventType="touchUpInside" id="ORp-SP-obL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yC1-Fa-wls">
@@ -201,7 +201,6 @@
                             <constraint firstItem="RfY-KO-2Mj" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="90" id="FzV-3w-FA9"/>
                             <constraint firstItem="GgL-cy-EIN" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="HJ9-FS-4NO"/>
                             <constraint firstItem="zfz-TJ-LV1" firstAttribute="leading" secondItem="yC1-Fa-wls" secondAttribute="leading" type="default" id="J85-dU-p3F"/>
-                            <constraint firstItem="uoQ-9g-FPT" firstAttribute="baseline" secondItem="PYF-fM-GqN" secondAttribute="baseline" type="default" id="Klf-iQ-H34"/>
                             <constraint firstItem="Y8V-rW-a7c" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="70" id="LDr-iz-I6n"/>
                             <constraint firstItem="zfz-TJ-LV1" firstAttribute="top" secondItem="yC1-Fa-wls" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="M5X-Ef-Vr9"/>
                             <constraint firstItem="PYF-fM-GqN" firstAttribute="bottom" secondItem="Y8V-rW-a7c" secondAttribute="bottom" type="default" id="MBG-ns-L6E"/>
@@ -214,7 +213,6 @@
                             <constraint firstItem="Qba-in-CmT" firstAttribute="top" secondItem="Y8V-rW-a7c" secondAttribute="top" type="default" id="asQ-Dz-WeJ"/>
                             <constraint firstItem="PYF-fM-GqN" firstAttribute="top" secondItem="Y8V-rW-a7c" secondAttribute="top" type="default" id="c01-36-TBO"/>
                             <constraint firstItem="GgL-cy-EIN" firstAttribute="top" secondItem="3" secondAttribute="top" constant="79" id="eTF-xf-hBr"/>
-                            <constraint firstItem="uoQ-9g-FPT" firstAttribute="baseline" secondItem="Y8V-rW-a7c" secondAttribute="baseline" type="default" id="hLS-ic-Pan"/>
                             <constraint firstItem="Qba-in-CmT" firstAttribute="centerX" secondItem="yJw-5C-e1R" secondAttribute="centerX" type="default" id="hkH-ZH-bcg"/>
                             <constraint firstItem="BCU-5G-mKM" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="14" id="nDk-XS-Jw6"/>
                             <constraint firstAttribute="trailing" secondItem="wiR-fk-10S" secondAttribute="trailing" constant="13" id="pxh-2n-hQw"/>
@@ -242,6 +240,7 @@
                 <relationship kind="action" name="logBtnPressed:"/>
                 <relationship kind="action" name="scanButtonPressed:"/>
                 <relationship kind="action" name="sendButtonPressed:"/>
+                <relationship kind="action" name="startButtonPressed:"/>
                 <relationship kind="outlet" name="dbgTextView" candidateClass="UITextView"/>
                 <relationship kind="outlet" name="scannedResultTable" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="seqNumTextField" candidateClass="UITextField"/>
