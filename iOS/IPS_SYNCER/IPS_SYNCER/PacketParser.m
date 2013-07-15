@@ -66,10 +66,10 @@ const unsigned char end_packet_type = 0xf1;
     switch (packet_type) {
         case start_packet_type:
             keys = [NSArray arrayWithObjects:@"packet_type", @"packet_type_to_inquiry", @"current_uptime", nil];
-            objects = [NSArray arrayWithObjects:@"start_packet", @"value2", @"value3", @"value4", nil];
+            objects = [NSArray arrayWithObjects:@"start_packet", @"value2", @"value3", nil];
             dictionary = [NSDictionary dictionaryWithObjects:objects
                                                      forKeys:keys];
-            [self.delegate didReceivePacket:@"loc_packet" :dictionary];
+            [self.delegate didReceivePacket:@"start_packet" :dictionary];
 
             break;
             
@@ -78,7 +78,7 @@ const unsigned char end_packet_type = 0xf1;
             objects = [NSArray arrayWithObjects:@"end_packet", @"value2", @"value3", @"value4", nil];
             dictionary = [NSDictionary dictionaryWithObjects:objects
                                                      forKeys:keys];
-            [self.delegate didReceivePacket:@"loc_packet" :dictionary];
+            [self.delegate didReceivePacket:@"end_packet" :dictionary];
             break;
             
         case loc_packet_type:
