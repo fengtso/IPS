@@ -25,6 +25,39 @@
                                     <action selector="sendButtonPressed:" destination="2" eventType="touchUpInside" id="cd9-uE-Dve"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2PD-ul-uXt">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="5dz-9u-kfv"/>
+                                    <constraint firstAttribute="height" constant="50" id="xhM-jJ-Aie"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="ack_e">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendButtonPressed:" destination="2" eventType="touchUpInside" id="t2l-d7-rus"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nS-UN-nf4">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="9Ck-j0-3Fd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="ack_s">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendButtonPressed:" destination="2" eventType="touchUpInside" id="a1C-Q9-Z6G"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nl2-I5-333">
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.43137254899999999" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -124,21 +157,30 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="2PD-ul-uXt" firstAttribute="baseline" secondItem="Y8V-rW-a7c" secondAttribute="baseline" type="default" id="1X9-M3-0Cc"/>
                             <constraint firstItem="PYF-fM-GqN" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="10" id="5NL-QS-YhY"/>
                             <constraint firstItem="BCU-5G-mKM" firstAttribute="leading" secondItem="yJw-5C-e1R" secondAttribute="leading" type="default" id="5gD-0y-1nE"/>
                             <constraint firstItem="Nl2-I5-333" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="8qO-HM-HM9"/>
-                            <constraint firstItem="Y8V-rW-a7c" firstAttribute="bottom" secondItem="yC1-Fa-wls" secondAttribute="bottom" type="default" id="GET-k3-b9C"/>
+                            <constraint firstItem="9nS-UN-nf4" firstAttribute="top" secondItem="Y8V-rW-a7c" secondAttribute="top" type="default" id="ERr-ax-3Io"/>
                             <constraint firstItem="Y8V-rW-a7c" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="70" id="LDr-iz-I6n"/>
+                            <constraint firstItem="9nS-UN-nf4" firstAttribute="bottom" secondItem="yC1-Fa-wls" secondAttribute="bottom" type="default" id="LKI-Xq-mQi"/>
+                            <constraint firstAttribute="trailing" secondItem="2PD-ul-uXt" secondAttribute="trailing" constant="79" id="MfV-Et-8CS"/>
                             <constraint firstItem="BCU-5G-mKM" firstAttribute="top" secondItem="3" secondAttribute="top" constant="150" id="Mkx-Sd-5KC"/>
+                            <constraint firstItem="2PD-ul-uXt" firstAttribute="baseline" secondItem="9nS-UN-nf4" secondAttribute="baseline" type="default" id="OSm-RQ-f51"/>
+                            <constraint firstItem="2PD-ul-uXt" firstAttribute="baseline" secondItem="PYF-fM-GqN" secondAttribute="baseline" type="default" id="UQS-il-aOx"/>
                             <constraint firstItem="yJw-5C-e1R" firstAttribute="top" secondItem="3" secondAttribute="top" constant="120" id="WeD-RF-dMO"/>
+                            <constraint firstItem="2PD-ul-uXt" firstAttribute="baseline" secondItem="yC1-Fa-wls" secondAttribute="baseline" type="default" id="Wv3-0x-kf8"/>
                             <constraint firstItem="PYF-fM-GqN" firstAttribute="top" secondItem="3" secondAttribute="top" constant="9" id="XOy-hp-8LR"/>
-                            <constraint firstItem="yC1-Fa-wls" firstAttribute="top" secondItem="Y8V-rW-a7c" secondAttribute="top" type="default" id="ae1-jE-cL4"/>
+                            <constraint firstItem="2PD-ul-uXt" firstAttribute="top" secondItem="3" secondAttribute="top" constant="8" id="Yr7-0c-0fh"/>
                             <constraint firstItem="PYF-fM-GqN" firstAttribute="top" secondItem="Y8V-rW-a7c" secondAttribute="top" type="default" id="c01-36-TBO"/>
-                            <constraint firstAttribute="trailing" secondItem="yC1-Fa-wls" secondAttribute="trailing" constant="16" id="cez-4o-f45"/>
+                            <constraint firstItem="9nS-UN-nf4" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="131" id="h6A-5F-Kw2"/>
+                            <constraint firstItem="9nS-UN-nf4" firstAttribute="bottom" secondItem="Y8V-rW-a7c" secondAttribute="bottom" type="default" id="nWX-Pt-XbV"/>
+                            <constraint firstAttribute="trailing" secondItem="yC1-Fa-wls" secondAttribute="trailing" constant="11" id="npd-CK-vEp"/>
                             <constraint firstItem="BCU-5G-mKM" firstAttribute="trailing" secondItem="Nl2-I5-333" secondAttribute="trailing" type="default" id="ols-3e-3O8"/>
                             <constraint firstItem="Y8V-rW-a7c" firstAttribute="bottom" secondItem="PYF-fM-GqN" secondAttribute="bottom" type="default" id="qG2-xG-Nzj"/>
                             <constraint firstItem="BCU-5G-mKM" firstAttribute="trailing" secondItem="yJw-5C-e1R" secondAttribute="trailing" type="default" id="qin-ki-ZZb"/>
                             <constraint firstItem="Nl2-I5-333" firstAttribute="top" secondItem="3" secondAttribute="top" constant="63" id="t0t-v4-uOg"/>
+                            <constraint firstItem="yC1-Fa-wls" firstAttribute="top" secondItem="9nS-UN-nf4" secondAttribute="top" type="default" id="w8O-jZ-Rfz"/>
                             <constraint firstItem="BCU-5G-mKM" firstAttribute="leading" secondItem="Nl2-I5-333" secondAttribute="leading" type="default" id="wxr-au-QOk"/>
                         </constraints>
                     </view>

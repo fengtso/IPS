@@ -119,6 +119,18 @@
     [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
 }
 
+- (void) send_ack_start_packet
+{
+    NSData* data_to_send = [self create_packet:3 :0];
+    [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+}
+
+- (void) send_ack_end_packet
+{
+    NSData* data_to_send = [self create_packet:4 :0];
+    [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+}
+
 /*
  *  Implement a finite state machine
  *
@@ -193,6 +205,18 @@
         return;
     }
     
+    if ([_curr_state isEqualToString:@"ack_start_packet"]) {
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self send_ack_start_packet];
+        return;
+    }
+    
+    if ([_curr_state isEqualToString:@"ack_end_packet"]) {
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self send_ack_end_packet];
+        return;
+    }
+    
     if ([_curr_state isEqualToString:@"disconnect"]) {
         [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
         return;
@@ -223,7 +247,7 @@
     }
 }
 
-/*  @param packet_type 1:inquiry_loc_packet 2:inquiry_imu_packet 3:ack 4:nack
+/*  @param packet_type 1:inquiry_loc_packet 2:inquiry_imu_packet 3:ack_start 4:ack_end 5:nack
  *  @param seq_num  sequence number for ack or nack
  */
 - (NSData*) create_packet:(int)packet_type :(NSString*)seq_num
@@ -237,6 +261,9 @@
     unsigned char loc_packet_type[] = {0xAA};
     unsigned char imu_packet_type[] = {0xBB};
     unsigned char dummy_bytes[] = {0x00};
+    unsigned char start_packet_type[] = {0xF0};
+    unsigned char end_packet_type[] = {0xF1};
+    
     int seq_num_intvalue = 0;
     
     // Append BOF
@@ -273,8 +300,8 @@
             // Append packet type
             [packet appendBytes:ack_packet_type length:1];
             
-            // Append inquiry packet type
-            [packet appendBytes:loc_packet_type length:1];
+            // Append start packet type
+            [packet appendBytes:start_packet_type length:1];
             
             // Append sequence number
             seq_num_intvalue = [seq_num intValue];
@@ -287,6 +314,23 @@
             break;
             
         case 4:
+            // Append packet type
+            [packet appendBytes:ack_packet_type length:1];
+            
+            // Append end packet type
+            [packet appendBytes:end_packet_type length:1];
+            
+            // Append sequence number
+            seq_num_intvalue = [seq_num intValue];
+            [packet appendBytes:&seq_num_intvalue length:sizeof(int)];
+            
+            // Append dummy field
+            for (int i = 0; i < 12; i++) {
+                [packet appendBytes:dummy_bytes length:1];
+            }
+            break;
+            
+        case 5:
             // Append packet type
             [packet appendBytes:nack_packet_type length:1];
             
@@ -320,7 +364,7 @@
 - (void) didReceivePacket:(NSString *)packet_type :(NSDictionary *)data_fields
 {
     NSLog(@"received a %@, parsed_data_dict=%@", packet_type, data_fields);
-    
+    [self.delegate updateSMLog:[NSString stringWithFormat:@"received %@", data_fields]];
 }
 
 - (void) discover_services{

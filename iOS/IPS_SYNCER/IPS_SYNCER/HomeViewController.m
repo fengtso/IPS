@@ -63,6 +63,11 @@
     if(btn.tag == 1)
        [state_machine send_inquiry_to_sensor:@"loc_data"];
     
+    if(btn.tag == 2)
+        [state_machine send_ack_start_packet];
+    
+    if(btn.tag == 3)
+        [state_machine send_ack_end_packet];
 }
 
 - (IBAction)logBtnPressed:(id)sender

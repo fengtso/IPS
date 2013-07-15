@@ -38,5 +38,6 @@
 
 - (void) update_state:(NSString *)_curr_state;
 - (void) send_inquiry_to_sensor:(NSString *)inquiry_packet_type;
-
+- (void) send_ack_start_packet;
+- (void) send_ack_end_packet;
 @end

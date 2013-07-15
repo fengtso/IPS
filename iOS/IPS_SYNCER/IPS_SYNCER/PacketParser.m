@@ -57,23 +57,33 @@ const unsigned char end_packet_type = 0xf1;
     unsigned char packet_type;
     [packetData getBytes:&packet_type range:NSMakeRange(1, 1)];
     
+    // Decode packet
+    
     NSMutableArray *keys;
     NSMutableArray *objects;
     NSDictionary *dictionary;
     
     switch (packet_type) {
         case start_packet_type:
-            
+            keys = [NSArray arrayWithObjects:@"packet_type", @"packet_type_to_inquiry", @"current_uptime", nil];
+            objects = [NSArray arrayWithObjects:@"start_packet", @"value2", @"value3", @"value4", nil];
+            dictionary = [NSDictionary dictionaryWithObjects:objects
+                                                     forKeys:keys];
+            [self.delegate didReceivePacket:@"loc_packet" :dictionary];
 
             break;
             
         case end_packet_type:
-            
+            keys = [NSArray arrayWithObjects:@"packet_type", @"sequence_number", @"uptime", @"uid_record", nil];
+            objects = [NSArray arrayWithObjects:@"end_packet", @"value2", @"value3", @"value4", nil];
+            dictionary = [NSDictionary dictionaryWithObjects:objects
+                                                     forKeys:keys];
+            [self.delegate didReceivePacket:@"loc_packet" :dictionary];
             break;
             
         case loc_packet_type:
-            keys = [NSArray arrayWithObjects:@"key1", @"key2", nil];
-            objects = [NSArray arrayWithObjects:@"value1", @"value2", nil];
+            keys = [NSArray arrayWithObjects:@"packet_type", @"sequence_number", @"uptime", @"uid_record", nil];
+            objects = [NSArray arrayWithObjects:@"loc_packet", @"value2", @"value3", @"value4", nil];
             dictionary = [NSDictionary dictionaryWithObjects:objects
                                                                    forKeys:keys];
             [self.delegate didReceivePacket:@"loc_packet" :dictionary];
