@@ -19,7 +19,7 @@ const unsigned char end_packet_type = 0xf1;
 
 - (void) add_bytes:(NSData *)incoming_data
 {
-    //NSLog(@"adding bytes:%@", incoming_data);
+    NSLog(@"adding incoming bytes:%@", incoming_data);
     for (int i = 0; i < [incoming_data length]; i++) {
         char curr_byte;
         
@@ -73,8 +73,7 @@ const unsigned char end_packet_type = 0xf1;
     
     NSString* inquiry_packet_type;
 
-    
-    
+
     // Decode packet
     NSMutableArray *keys;
     NSMutableArray *objects;
