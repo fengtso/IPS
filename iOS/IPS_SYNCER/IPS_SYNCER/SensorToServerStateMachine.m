@@ -36,6 +36,8 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
         
         connected_peripheral = nil;
         discovered_peripherals = [NSMutableArray arrayWithCapacity:1];
+        
+        debug_mode = FALSE;
     }
     return self;
 }
@@ -114,6 +116,17 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     }
 }
 
+- (void) debug_connect
+{
+    debug_mode = TRUE;
+}
+
+- (void) send_debug_packet
+{
+    NSData* data_to_send = [self create_packet:0 :0];
+    [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+}
+
 - (void) send_inquiry_packet
 {
     // loc_packet_type
@@ -152,6 +165,13 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
 - (void) update_state:(NSString *)_curr_state
 {
+    if ([_curr_state isEqualToString:@"start_debug_mode"]) {
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
+        [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
+        debug_mode = TRUE;
+        [self update_state:@"start_rest"];
+    }
+    
     if ([_curr_state isEqualToString:@"start_state_machine"]) {
         [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
@@ -281,7 +301,7 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     }
 }
 
-/*  @param packet_type 1:inquiry_loc_packet 2:inquiry_imu_packet 3:ack_start 4:ack_end 5:nack
+/*  @param packet_type 0:debug_packet 1:inquiry_loc_packet 2:inquiry_imu_packet 3:ack_start 4:ack_end 5:nack
  *  @param seq_num  sequence number for ack or nack
  */
 - (NSData*) create_packet:(int)packet_type :(NSString*)seq_num
@@ -297,6 +317,7 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     unsigned char dummy_bytes[] = {0x00};
     unsigned char start_packet_type[] = {0xF0};
     unsigned char end_packet_type[] = {0xF1};
+    unsigned char debug_packet_type[] = {0x55};
     
     int seq_num_intvalue = 0;
     
@@ -304,6 +325,12 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     [packet appendBytes:BOF length:1];
     
     switch(packet_type){
+        case 0:
+            // Append dummy field
+            for (int i = 0; i < 18; i++) {
+                [packet appendBytes:debug_packet_type length:1];
+            }
+            
         case 1:
             // Append packet type
             [packet appendBytes:inquiry_packet_type length:1];
@@ -502,7 +529,9 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     if ( (state_machine_characteristics = [e nextObject]) ) {
         [peripheral setNotifyValue:YES forCharacteristic: state_machine_characteristics];
         
-        [self update_state:@"inquiry"];
+        if (!debug_mode) {
+            [self update_state:@"inquiry"];
+        }
     }
 }
 

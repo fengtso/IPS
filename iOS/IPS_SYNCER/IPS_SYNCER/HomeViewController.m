@@ -89,6 +89,15 @@
     
     if(btn.tag == 3)
         [state_machine send_ack_end_packet];
+    
+    if(btn.tag == 4) {
+        [state_machine send_debug_packet];
+    }
+}
+
+- (IBAction)debugConnectBtnPressed:(id)sender
+{
+    [state_machine update_state:@"start_debug_mode"];
 }
 
 - (IBAction)logBtnPressed:(id)sender

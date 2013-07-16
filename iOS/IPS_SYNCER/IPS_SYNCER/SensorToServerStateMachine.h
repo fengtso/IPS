@@ -32,6 +32,8 @@
     NSTimer *timer;
     int num_discovered_peripherals;
     int curr_index_of_pheripheral_to_connect;
+    
+    BOOL debug_mode;
 }
 
 @property (nonatomic, assign) id<SensorToServerStateMachineDelegate> delegate;
@@ -41,4 +43,5 @@
 - (void) send_inquiry_to_sensor:(NSString *)inquiry_packet_type;
 - (void) send_ack_start_packet;
 - (void) send_ack_end_packet;
+- (void) send_debug_packet;
 @end

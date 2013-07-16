@@ -30,6 +30,23 @@
                                     <action selector="startButtonPressed:" destination="2" eventType="touchUpInside" id="pGi-gw-no4"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ryp-Ry-Aim">
+                                <color key="backgroundColor" red="0.96862745100000003" green="0.43137254899999999" blue="0.30980392159999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="txH-MG-JgA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <state key="normal" title="Debug_Connect">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="debugConnectBtnPressed:" destination="2" eventType="touchUpInside" id="cZH-8t-asT"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PYF-fM-GqN">
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -82,6 +99,23 @@
                                     <action selector="sendButtonPressed:" destination="2" eventType="touchUpInside" id="ocP-4P-nF2"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gjq-dq-Qx9">
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="52" id="9Qu-at-ZOK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Debug">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendButtonPressed:" destination="2" eventType="touchUpInside" id="iNK-66-79R"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogj-TK-jvI">
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -102,7 +136,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="BCU-5G-mKM">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="244" id="tM5-0l-bV9"/>
+                                    <constraint firstAttribute="height" constant="213" id="0sK-VK-cuT"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="foundDevice" textLabel="JEC-et-uEk" detailTextLabel="JaI-Zh-gp5" style="IBUITableViewCellStyleSubtitle" id="WIv-wE-cBk">
@@ -135,7 +169,7 @@
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJw-5C-e1R">
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="327" id="yAT-lV-wpe"/>
+                                    <constraint firstAttribute="height" constant="266" id="Sql-eh-AQs"/>
                                 </constraints>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -147,25 +181,31 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Gjq-dq-Qx9" firstAttribute="top" secondItem="hcv-yD-KdZ" secondAttribute="top" type="default" id="0eU-CG-arq"/>
                             <constraint firstItem="Ogj-TK-jvI" firstAttribute="trailing" secondItem="Nl2-I5-333" secondAttribute="trailing" type="default" id="0yf-45-a5O"/>
+                            <constraint firstItem="ryp-Ry-Aim" firstAttribute="top" secondItem="3" secondAttribute="top" constant="122" id="2ZI-ho-DpP"/>
                             <constraint firstItem="BCU-5G-mKM" firstAttribute="leading" secondItem="yJw-5C-e1R" secondAttribute="leading" type="default" id="5gD-0y-1nE"/>
+                            <constraint firstItem="yJw-5C-e1R" firstAttribute="top" secondItem="ryp-Ry-Aim" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="AaW-Cp-wCk"/>
                             <constraint firstItem="Ogj-TK-jvI" firstAttribute="leading" secondItem="hcv-yD-KdZ" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Akz-om-Fo7"/>
                             <constraint firstItem="Ogj-TK-jvI" firstAttribute="bottom" secondItem="hcv-yD-KdZ" secondAttribute="bottom" type="default" id="BFD-4f-lU6"/>
-                            <constraint firstItem="BCU-5G-mKM" firstAttribute="top" secondItem="3" secondAttribute="top" constant="150" id="Mkx-Sd-5KC"/>
+                            <constraint firstItem="BCU-5G-mKM" firstAttribute="top" secondItem="ryp-Ry-Aim" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="CEY-bY-IbZ"/>
+                            <constraint firstItem="Gjq-dq-Qx9" firstAttribute="bottom" secondItem="Y8V-rW-a7c" secondAttribute="bottom" type="default" id="CRD-Tj-g9j"/>
                             <constraint firstItem="Y8V-rW-a7c" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="75" id="NHo-Bo-1KU"/>
-                            <constraint firstItem="yJw-5C-e1R" firstAttribute="top" secondItem="3" secondAttribute="top" constant="120" id="WeD-RF-dMO"/>
+                            <constraint firstItem="Gjq-dq-Qx9" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="PR3-0H-fNi"/>
+                            <constraint firstItem="Gjq-dq-Qx9" firstAttribute="bottom" secondItem="hcv-yD-KdZ" secondAttribute="bottom" type="default" id="PZk-t3-knP"/>
+                            <constraint firstItem="ryp-Ry-Aim" firstAttribute="trailing" secondItem="BCU-5G-mKM" secondAttribute="trailing" type="default" id="PtA-uI-Md3"/>
+                            <constraint firstItem="ryp-Ry-Aim" firstAttribute="leading" secondItem="Nl2-I5-333" secondAttribute="leading" type="default" id="VaL-8x-Fj2"/>
                             <constraint firstItem="PYF-fM-GqN" firstAttribute="top" secondItem="3" secondAttribute="top" constant="9" id="XOy-hp-8LR"/>
                             <constraint firstItem="PYF-fM-GqN" firstAttribute="leading" secondItem="Nl2-I5-333" secondAttribute="leading" type="default" id="aED-XF-u3a"/>
                             <constraint firstItem="PYF-fM-GqN" firstAttribute="top" secondItem="Y8V-rW-a7c" secondAttribute="top" type="default" id="c01-36-TBO"/>
-                            <constraint firstItem="yJw-5C-e1R" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="geo-h5-4T2"/>
+                            <constraint firstItem="ryp-Ry-Aim" firstAttribute="trailing" secondItem="Nl2-I5-333" secondAttribute="trailing" type="default" id="dvg-Wm-MxK"/>
+                            <constraint firstItem="ryp-Ry-Aim" firstAttribute="leading" secondItem="BCU-5G-mKM" secondAttribute="leading" type="default" id="oDx-iD-Qjm"/>
                             <constraint firstItem="Ogj-TK-jvI" firstAttribute="top" secondItem="hcv-yD-KdZ" secondAttribute="top" type="default" id="oQG-a6-oVe"/>
-                            <constraint firstItem="BCU-5G-mKM" firstAttribute="trailing" secondItem="Nl2-I5-333" secondAttribute="trailing" type="default" id="ols-3e-3O8"/>
-                            <constraint firstItem="hcv-yD-KdZ" firstAttribute="bottom" secondItem="Y8V-rW-a7c" secondAttribute="bottom" type="default" id="pry-VS-YcU"/>
                             <constraint firstItem="Nl2-I5-333" firstAttribute="top" secondItem="3" secondAttribute="top" constant="65" id="qBj-yY-rX4"/>
                             <constraint firstItem="Y8V-rW-a7c" firstAttribute="bottom" secondItem="PYF-fM-GqN" secondAttribute="bottom" type="default" id="qG2-xG-Nzj"/>
                             <constraint firstItem="BCU-5G-mKM" firstAttribute="trailing" secondItem="yJw-5C-e1R" secondAttribute="trailing" type="default" id="qin-ki-ZZb"/>
-                            <constraint firstItem="hcv-yD-KdZ" firstAttribute="top" secondItem="Y8V-rW-a7c" secondAttribute="top" type="default" id="r0c-vC-lI8"/>
-                            <constraint firstItem="BCU-5G-mKM" firstAttribute="leading" secondItem="Nl2-I5-333" secondAttribute="leading" type="default" id="wxr-au-QOk"/>
+                            <constraint firstItem="Gjq-dq-Qx9" firstAttribute="centerX" secondItem="Nl2-I5-333" secondAttribute="centerX" type="default" id="taV-mY-5XE"/>
+                            <constraint firstItem="Gjq-dq-Qx9" firstAttribute="top" secondItem="Y8V-rW-a7c" secondAttribute="top" type="default" id="yX8-PS-dfG"/>
                         </constraints>
                     </view>
                     <connections>
@@ -184,6 +224,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
             <relationships>
                 <relationship kind="action" name="clearBtnPressed:"/>
+                <relationship kind="action" name="debugConnectBtnPressed:"/>
                 <relationship kind="action" name="logBtnPressed:"/>
                 <relationship kind="action" name="scanButtonPressed:"/>
                 <relationship kind="action" name="sendButtonPressed:"/>
