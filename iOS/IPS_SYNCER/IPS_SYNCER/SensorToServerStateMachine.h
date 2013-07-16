@@ -15,6 +15,7 @@
 @required
 - (void) updateSMLog:(NSString *) text;
 - (void) discoveredPeripheral:(NSMutableArray *)discovered_peripherals;
+- (void) updateDiscoveredPeripherals:(NSMutableArray *)discovered_peripherals;
 @end
 
 @interface SensorToServerStateMachine : NSObject <CBCentralManagerCtrlDelegate, CBPeripheralDelegate, PacketParserDelegate>

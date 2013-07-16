@@ -88,6 +88,7 @@
     num_discovered_peripherals = [discovered_peripherals count];
     curr_index_of_pheripheral_to_connect = 0;
     
+    // List found sensors' UUIDs
     [self.delegate updateSMLog:[NSString stringWithFormat:@"%d sensors are found", num_discovered_peripherals]];
     for (int i = 0; i < num_discovered_peripherals; i++) {
         [self.delegate updateSMLog:[NSString stringWithFormat:@"UUID:%@", ((PeripheralCell*)discovered_peripherals[i]).peripheral.UUID]];
@@ -99,12 +100,12 @@
 - (void) connect
 {
     PeripheralCell* per=[discovered_peripherals objectAtIndex:curr_index_of_pheripheral_to_connect];
-    [self.delegate updateSMLog:@"Connecting ..."];
+    [self.delegate updateSMLog:@"connecting ..."];
     [self.delegate updateSMLog:[NSString stringWithFormat:@"UUID:%@", per.peripheral.UUID]];
     [self.CBCMCtrl.CBCM connectPeripheral:per.peripheral options:nil];
 }
 
-- (void) diconnect
+- (void) disconnect
 {
     if(connected_peripheral){
         [self.CBCMCtrl.CBCM cancelPeripheralConnection:connected_peripheral];
@@ -131,6 +132,17 @@
     [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
 }
 
+- (void) stop_state_machine
+{
+    [timer invalidate];
+    timer = nil;
+    
+    [self disconnect];
+    curr_index_of_pheripheral_to_connect = 0;
+    [discovered_peripherals removeAllObjects];
+    [self.delegate updateDiscoveredPeripherals:discovered_peripherals];
+}
+
 /*
  *  Implement a finite state machine
  *
@@ -138,9 +150,23 @@
  */
 
 - (void) update_state:(NSString *)_curr_state
-{    
+{
+    if ([_curr_state isEqualToString:@"start_state_machine"]) {
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
+        [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
+
+        [self update_state:@"start_rest"];
+    }
+    
+    if ([_curr_state isEqualToString:@"stop_state_machine"]) {
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
+        [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
+
+        [self stop_state_machine];
+    }
+    
     if ([_curr_state isEqualToString:@"start_rest"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         
         timer = [NSTimer scheduledTimerWithTimeInterval:rest_interval
                                                         target:self
@@ -152,7 +178,7 @@
     }
     
     if ([_curr_state isEqualToString:@"stop_rest"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         
         [self update_state:@"start_scan"];
         
@@ -160,7 +186,7 @@
     }
     
     if ([_curr_state isEqualToString:@"start_scan"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         
         [self start_scan];
         timer = [NSTimer scheduledTimerWithTimeInterval:scan_interval
@@ -173,15 +199,17 @@
     
     
     if ([_curr_state isEqualToString:@"stop_scan"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         [self update_state:@"connect"];
         return;
     }
     
     if ([_curr_state isEqualToString:@"connect"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
-        
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
+
         if (num_discovered_peripherals < 1 || curr_index_of_pheripheral_to_connect == num_discovered_peripherals) {
+            curr_index_of_pheripheral_to_connect = 0;
+            num_discovered_peripherals = 0;
             [self update_state:@"start_rest"];
         }
         else{
@@ -192,7 +220,7 @@
     }
     
     if ([_curr_state isEqualToString:@"connected"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         curr_index_of_pheripheral_to_connect++;
         
         return;
@@ -200,30 +228,35 @@
     
     
     if ([_curr_state isEqualToString:@"inquiry"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         [self send_inquiry_packet];
         return;
     }
     
     if ([_curr_state isEqualToString:@"ack_start_packet"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         [self send_ack_start_packet];
         return;
     }
     
     if ([_curr_state isEqualToString:@"ack_end_packet"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         [self send_ack_end_packet];
+        
+        [self update_state:@"disconnect"];
         return;
     }
     
     if ([_curr_state isEqualToString:@"disconnect"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
+        
+        [self disconnect];
         return;
     }
     
     if ([_curr_state isEqualToString:@"disconnected"]) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]==========", _curr_state]];
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
+
         return;
     }
     
@@ -231,15 +264,15 @@
 
 -(void)writeCharacteristic:(CBPeripheral *)peripheral sUUID:(NSString *)sUUID cUUID:(NSString *)cUUID data:(NSData *)data {
     // Sends data to BLE peripheral to process HID and send EHIF command to PC
-    [self.delegate updateSMLog:[NSString stringWithFormat:@"Sending %@ to peripheral",data]];
+    //[self.delegate updateSMLog:[NSString stringWithFormat:@"Sending %@ to peripheral",data]];
     for ( CBService *service in peripheral.services ) {
-        [self.delegate updateSMLog:[NSString stringWithFormat:@"Service %@",service.UUID]];
+        //[self.delegate updateSMLog:[NSString stringWithFormat:@"Service %@",service.UUID]];
         if ([service.UUID isEqual:[CBUUID UUIDWithString:sUUID]]) {
             for ( CBCharacteristic *characteristic in service.characteristics ) {
-                [self.delegate updateSMLog:[NSString stringWithFormat:@"Characteristic %@",characteristic.UUID]];
+                //[self.delegate updateSMLog:[NSString stringWithFormat:@"Characteristic %@",characteristic.UUID]];
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:cUUID]]) {
                     /* EVERYTHING IS FOUND, WRITE characteristic ! */
-                    [self.delegate updateSMLog:@"Found Service, Characteristic, writing value"];
+                    //[self.delegate updateSMLog:@"Found Service, Characteristic, writing value"];
                     [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];                    
                 }
             }
@@ -365,6 +398,14 @@
 {
     NSLog(@"received a %@, parsed_data_dict=%@", packet_type, data_fields);
     [self.delegate updateSMLog:[NSString stringWithFormat:@"received %@", data_fields]];
+    
+    if ([packet_type isEqualToString:@"start_packet"]) {
+        [self update_state:@"ack_start_packet"];
+    }
+    
+    if ([packet_type isEqualToString:@"end_packet"]) {
+        [self update_state:@"ack_end_packet"];
+    }
 }
 
 - (void) discover_services{
@@ -422,14 +463,10 @@
     
     // Let UIViewController to show peripherals
     [self.delegate discoveredPeripheral:discovered_peripherals];
-
 }
 
 - (void) connectedPeripheral:(CBPeripheral *)peripheral
 {
-    [self.delegate updateSMLog:@"Connected ..."];
-    [self.delegate updateSMLog:[NSString stringWithFormat:@"UUID:%@",peripheral.UUID]];
-    
     connected_peripheral = peripheral;
     [connected_peripheral setDelegate:self];
     
@@ -442,7 +479,10 @@
 
 - (void) disconnectedPeripheral:(CBPeripheral *)peripheral
 {
-    [self.delegate updateSMLog:@"lost connection"];
+    [self.delegate updateSMLog:@"disconnected"];
+    [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
+
+    [self update_state:@"connect"];
 }
 
 

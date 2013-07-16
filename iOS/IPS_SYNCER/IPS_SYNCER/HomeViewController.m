@@ -18,7 +18,7 @@
 
 @implementation HomeViewController
 
-@synthesize dbgTextView, scannedResultTable;
+@synthesize dbgTextView, scannedResultTable, startBtn;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,11 +38,18 @@
     
     state_machine = [[SensorToServerStateMachine alloc] init];
     state_machine.delegate = self;
+    is_state_machine_on = FALSE;
 }
 
 - (void) updateSMLog:(NSString *)text
 {
     [dbgTextView setText:[NSString stringWithFormat:@"%@%@\r\n",dbgTextView.text,text]];
+}
+
+- (void) updateDiscoveredPeripherals:(NSMutableArray *)discovered_peripherals
+{
+    peripherals = [[NSMutableArray alloc] initWithArray:discovered_peripherals];
+    [scannedResultTable reloadData];
 }
 
 
@@ -52,7 +59,21 @@
 }
 
 - (IBAction)startButtonPressed:(id)sender {
-    [state_machine update_state:@"start_rest"];
+    is_state_machine_on = !is_state_machine_on;
+    
+    if (is_state_machine_on) {
+        [startBtn setTitle:@"Stop" forState:UIControlStateNormal];
+        [startBtn setBackgroundColor:[UIColor lightGrayColor]];
+        
+        [state_machine update_state:@"start_state_machine"];
+    }
+    else{
+        [startBtn setTitle:@"Start" forState:UIControlStateNormal];
+        [startBtn setBackgroundColor:[UIColor orangeColor]];
+
+        [state_machine update_state:@"stop_state_machine"];
+
+    }
 }
 
 - (IBAction)sendButtonPressed:(id)sender {

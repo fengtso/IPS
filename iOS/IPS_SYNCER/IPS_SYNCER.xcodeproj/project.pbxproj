@@ -423,10 +423,12 @@
 		E9C95B9D178CA6CB00A8C7EE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IPS_SYNCER/IPS_SYNCER-Prefix.pch";
 				INFOPLIST_FILE = "IPS_SYNCER/IPS_SYNCER-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -434,10 +436,12 @@
 		E9C95B9E178CA6CB00A8C7EE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "IPS_SYNCER/IPS_SYNCER-Prefix.pch";
 				INFOPLIST_FILE = "IPS_SYNCER/IPS_SYNCER-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

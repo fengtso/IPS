@@ -14,11 +14,13 @@
 {
     NSMutableArray *peripherals;
     SensorToServerStateMachine *state_machine;
+    BOOL is_state_machine_on;
 }
 
 
 @property (strong, nonatomic) IBOutlet UITableView* scannedResultTable;
 @property (strong, nonatomic) IBOutlet UITextView *dbgTextView;
 @property (strong, nonatomic) IBOutlet UITextField *seqNumTextField;
+@property (strong, nonatomic) IBOutlet UIButton* startBtn;
 
 @end

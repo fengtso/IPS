@@ -56,17 +56,43 @@ const unsigned char end_packet_type = 0xf1;
     // Get packet type
     unsigned char packet_type;
     [packetData getBytes:&packet_type range:NSMakeRange(1, 1)];
+
+    unsigned char packet_type_to_inquiry;
+    [packetData getBytes:&packet_type_to_inquiry range:NSMakeRange(2, 1)];
+
+    int current_uptime;
+    NSNumber* current_uptime_nsnumber;
+    
+    int uptime;
+    NSNumber* uptime_nsnumber;
+    
+    int sequence_number;
+    NSNumber* sequence_number_nsnumber;
+    
+    NSData *uid_record;
+    
+    NSString* inquiry_packet_type;
+
+    
     
     // Decode packet
-    
     NSMutableArray *keys;
     NSMutableArray *objects;
     NSDictionary *dictionary;
     
     switch (packet_type) {
         case start_packet_type:
+            // Parse current_uptime
+            [packetData getBytes:&current_uptime range:NSMakeRange(3, 4)];
+            current_uptime_nsnumber = [NSNumber numberWithInt:current_uptime];
+            
             keys = [NSArray arrayWithObjects:@"packet_type", @"packet_type_to_inquiry", @"current_uptime", nil];
-            objects = [NSArray arrayWithObjects:@"start_packet", @"value2", @"value3", nil];
+            
+            if (packet_type_to_inquiry == 0xaa) {
+                inquiry_packet_type = @"0xaa";
+            }
+            objects = [NSArray arrayWithObjects:@"0xf0", inquiry_packet_type, current_uptime_nsnumber, nil];
+            
             dictionary = [NSDictionary dictionaryWithObjects:objects
                                                      forKeys:keys];
             [self.delegate didReceivePacket:@"start_packet" :dictionary];
@@ -74,20 +100,44 @@ const unsigned char end_packet_type = 0xf1;
             break;
             
         case end_packet_type:
-            keys = [NSArray arrayWithObjects:@"packet_type", @"sequence_number", @"uptime", @"uid_record", nil];
-            objects = [NSArray arrayWithObjects:@"end_packet", @"value2", @"value3", @"value4", nil];
+            // Parse current_uptime
+            [packetData getBytes:&current_uptime range:NSMakeRange(3, 4)];
+            current_uptime_nsnumber = [NSNumber numberWithInt:current_uptime];
+            
+            keys = [NSArray arrayWithObjects:@"packet_type", @"packet_type_to_inquiry", @"current_uptime", nil];
+            
+            if (packet_type_to_inquiry == 0xaa) {
+                inquiry_packet_type = @"0xaa";
+            }
+            objects = [NSArray arrayWithObjects:@"0xf1", inquiry_packet_type, current_uptime_nsnumber, nil];
+            
             dictionary = [NSDictionary dictionaryWithObjects:objects
                                                      forKeys:keys];
             [self.delegate didReceivePacket:@"end_packet" :dictionary];
+            
             break;
+
             
         case loc_packet_type:
+            // Parse sequence number
+            [packetData getBytes:&sequence_number range:NSMakeRange(2, 4)];
+            sequence_number_nsnumber = [NSNumber numberWithInt:sequence_number];
+            
+            // Parse uptime
+            [packetData getBytes:&uptime range:NSMakeRange(6, 4)];
+            uptime_nsnumber = [NSNumber numberWithInt:uptime];
+            
+            // Parse uid_record
+            uid_record = [packetData subdataWithRange:NSMakeRange(10, 9)];
+            
             keys = [NSArray arrayWithObjects:@"packet_type", @"sequence_number", @"uptime", @"uid_record", nil];
-            objects = [NSArray arrayWithObjects:@"loc_packet", @"value2", @"value3", @"value4", nil];
+     
+            objects = [NSArray arrayWithObjects:@"0xaa", sequence_number_nsnumber, uptime_nsnumber, uid_record, nil];
+            
             dictionary = [NSDictionary dictionaryWithObjects:objects
-                                                                   forKeys:keys];
+                                                     forKeys:keys];
             [self.delegate didReceivePacket:@"loc_packet" :dictionary];
-
+            
             break;
             
         case imu_packet_type:
