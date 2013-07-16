@@ -294,7 +294,7 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
                 if ([characteristic.UUID isEqual:[CBUUID UUIDWithString:cUUID]]) {
                     /* EVERYTHING IS FOUND, WRITE characteristic ! */
                     //[self.delegate updateSMLog:@"Found Service, Characteristic, writing value"];
-                    [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];                    
+                    [peripheral writeValue:data forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
                 }
             }
         }
@@ -330,6 +330,7 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
             for (int i = 0; i < 18; i++) {
                 [packet appendBytes:debug_packet_type length:1];
             }
+            break;
             
         case 1:
             // Append packet type
@@ -434,6 +435,11 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     if ([packet_type isEqualToString:@"end_packet"]) {
         [self update_state:@"ack_end_packet"];
     }
+}
+
+- (void) didReceiveData:(NSData *)data
+{
+    [self.delegate updateSMLog:[NSString stringWithFormat:@"received bytes %@", data]];
 }
 
 - (void) discover_services{

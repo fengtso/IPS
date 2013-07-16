@@ -20,6 +20,8 @@ const unsigned char end_packet_type = 0xf1;
 - (void) add_bytes:(NSData *)incoming_data
 {
     NSLog(@"adding incoming bytes:%@", incoming_data);
+    [self.delegate didReceiveData:incoming_data];
+    
     for (int i = 0; i < [incoming_data length]; i++) {
         char curr_byte;
         

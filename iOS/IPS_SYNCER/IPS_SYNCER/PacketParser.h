@@ -13,6 +13,7 @@
 @protocol PacketParserDelegate <NSObject>
 @required
 - (void) didReceivePacket:(NSString *)packet_type :(NSDictionary *)data_fields;
+- (void) didReceiveData:(NSData *)data;
 @end
 
 @interface PacketParser : NSObject
