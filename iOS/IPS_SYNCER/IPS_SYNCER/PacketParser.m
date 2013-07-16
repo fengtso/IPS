@@ -128,7 +128,7 @@ const unsigned char end_packet_type = 0xf1;
             uptime_nsnumber = [NSNumber numberWithInt:uptime];
             
             // Parse uid_record
-            uid_record = [packetData subdataWithRange:NSMakeRange(10, 9)];
+            uid_record = [packetData subdataWithRange:NSMakeRange(10, 8)];
             
             keys = [NSArray arrayWithObjects:@"packet_type", @"sequence_number", @"uptime", @"uid_record", nil];
      

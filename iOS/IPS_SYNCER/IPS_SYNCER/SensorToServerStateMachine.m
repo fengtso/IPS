@@ -13,6 +13,7 @@
 #define rest_interval 1
 #define scan_interval 5
 
+const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
 @implementation SensorToServerStateMachine
 
