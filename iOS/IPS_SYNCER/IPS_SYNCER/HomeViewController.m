@@ -33,7 +33,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
+    
     peripherals = [NSMutableArray arrayWithCapacity:1];
     
     state_machine = [[SensorToServerStateMachine alloc] init];
@@ -43,7 +43,9 @@
 
 - (void) updateSMLog:(NSString *)text
 {
-    [dbgTextView setText:[NSString stringWithFormat:@"%@%@\r\n",dbgTextView.text,text]];
+    if (!dbgTextView.hidden) {
+        [dbgTextView setText:[NSString stringWithFormat:@"%@%@\r\n",dbgTextView.text,text]];
+    }
 }
 
 - (void) updateDiscoveredPeripherals:(NSMutableArray *)discovered_peripherals
