@@ -90,9 +90,11 @@
     if(btn.tag == 3)
         [state_machine send_ack_end_packet];
     
-    if(btn.tag == 4) {
+    if(btn.tag == 4)
         [state_machine send_debug_packet];
-    }
+    
+    if(btn.tag == 5)
+        [state_machine send_data_to_server:@"loc_packet" :nil];
 }
 
 - (IBAction)debugConnectBtnPressed:(id)sender

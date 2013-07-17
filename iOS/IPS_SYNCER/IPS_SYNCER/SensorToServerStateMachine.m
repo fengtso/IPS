@@ -13,7 +13,7 @@
 #define rest_interval 1
 #define scan_interval 5
 
-const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
+NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
 @implementation SensorToServerStateMachine
 
@@ -42,8 +42,61 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     return self;
 }
 
-- (void) send_data_to_server:(NSDictionary *)data_fields
+- (NSNumber *) convertNSDataToDouble:(NSData *)data
 {
+    double d;
+    assert([data length] == sizeof(d));
+    memcpy(&d, [data bytes], sizeof(d));
+    
+    return [[NSNumber alloc] initWithDouble:d];
+}
+
+- (void) send_data_to_server:(NSString *)packet_type :(NSDictionary *)data_fields
+{
+    
+    NSArray *keys;
+    NSArray *objects;
+    
+    // Create loc_packet information to upload 
+    if ([packet_type isEqualToString:@"loc_packet"]) {
+        keys = [NSArray arrayWithObjects:@"id", @"timestamp", @"ips_beacon_id", nil];        
+        // TODO: location_beacon_id should convert from 8-byte byte array to double?
+        //NSNumber *ips_beacon_id = [self convertNSDataToDouble:[data_fields objectForKey:@"uid_record" ]];
+        NSNumber *ips_beacon_id = [[NSNumber alloc] initWithDouble:123.456];
+        objects = [NSArray arrayWithObjects: [data_fields objectForKey:@"device_uuid"], [data_fields objectForKey:@"timestamp"], ips_beacon_id, nil];
+    }
+    
+    // Create imu_packet information to upload
+    if ([packet_type isEqualToString:@"imu_packet"]) {
+        
+    }
+    
+    NSDictionary *myDataDictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+    NSError* err = nil;
+    NSData* myJSONData = [NSJSONSerialization dataWithJSONObject:myDataDictionary
+                                                         options:NSJSONWritingPrettyPrinted error:&err];
+    NSLog(@"%@",[[NSString alloc]initWithData:myJSONData encoding:NSUTF8StringEncoding]);
+
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    NSURL *myURL = [NSURL URLWithString:server_url];
+    [request setURL:myURL];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:myJSONData];
+    [request setValue:@"application/json" forHTTPHeaderField:@"content-type"];
+    
+    err = nil;
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *returnData, NSError *error0) {
+                               if (!error0) {
+                                   NSString *returnData_nsstring = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+                                   NSLog(@"response_data:%@", returnData_nsstring);
+                               } else {
+                                
+                                   NSLog(@"err: %@", error0.localizedDescription);
+                               }
+                           }];
+
 }
 
 - (void) send_inquiry_to_sensor:(NSString *)inquiry_packet_type
@@ -434,6 +487,10 @@ const NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     
     if ([packet_type isEqualToString:@"end_packet"]) {
         [self update_state:@"ack_end_packet"];
+    }
+    
+    if ([packet_type isEqualToString:@"loc_packet"] || [packet_type isEqualToString:@"imu_packet"]) {
+        [self send_data_to_server:packet_type :data_fields];
     }
 }
 

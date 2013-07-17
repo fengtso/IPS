@@ -22,6 +22,7 @@
     char rx_buff[RX_BUFF_LEN];
     NSString* device_uuid;
     int curr_uptime;
+    int curr_uptime_timestamp_since1970;
 }
 
 - (void) add_bytes:(NSData *) incoming_data;

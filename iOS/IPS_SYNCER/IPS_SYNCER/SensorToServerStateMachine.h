@@ -44,4 +44,6 @@
 - (void) send_ack_start_packet;
 - (void) send_ack_end_packet;
 - (void) send_debug_packet;
+- (void) send_data_to_server:(NSString *)packet_type :(NSDictionary *)data_fields;
+
 @end
