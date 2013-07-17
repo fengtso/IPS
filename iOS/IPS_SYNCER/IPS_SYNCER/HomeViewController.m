@@ -132,9 +132,10 @@
     // Configure the cell.
     PeripheralCell*pcell=[peripherals objectAtIndex: [indexPath row]];
     NSString *peripheral_uuid = [[NSString alloc] initWithFormat:@"%@", pcell.peripheral.UUID];
+    NSString *per_uuid = [peripheral_uuid substringWithRange:NSMakeRange(([peripheral_uuid length] - 36), 36)];
 
     cell.textLabel.text = pcell.peripheral.name;
-    cell.detailTextLabel.text = peripheral_uuid;
+    cell.detailTextLabel.text = per_uuid;
     //[NSString stringWithFormat:@"RSSI %d",[pcell.rssi intValue]];
 
     //self.colorNames objectAtIndex: [indexPath row]];

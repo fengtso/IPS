@@ -63,6 +63,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
         // TODO: location_beacon_id should convert from 8-byte byte array to double?
         //NSNumber *ips_beacon_id = [self convertNSDataToDouble:[data_fields objectForKey:@"uid_record" ]];
         NSNumber *ips_beacon_id = [[NSNumber alloc] initWithDouble:123.456];
+
         objects = [NSArray arrayWithObjects: [data_fields objectForKey:@"device_uuid"], [data_fields objectForKey:@"timestamp"], ips_beacon_id, nil];
     }
     
@@ -562,6 +563,8 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     [connected_peripheral setDelegate:self];
     
     NSString *device_uuid = [[NSString alloc] initWithFormat:@"%@", connected_peripheral.UUID];
+    device_uuid = [device_uuid substringWithRange:NSMakeRange(([device_uuid length] - 36), 36)];
+    
     [packet_parser set_device_uuid: device_uuid];
     [self discover_services];
     
@@ -575,7 +578,6 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
     [self update_state:@"connect"];
 }
-
 
 
 // CBPeripheralDelegate delegate functions
