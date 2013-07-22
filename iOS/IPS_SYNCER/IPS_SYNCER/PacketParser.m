@@ -20,7 +20,7 @@ const unsigned char end_packet_type = 0xf1;
 - (void) add_bytes:(NSData *)incoming_data
 {
     //NSLog(@"adding incoming bytes:%@", incoming_data);
-    [self.delegate didReceiveData:incoming_data];
+    //[self.delegate didReceiveData:incoming_data];
     
     for (int i = 0; i < [incoming_data length]; i++) {
         char curr_byte;
@@ -53,6 +53,16 @@ const unsigned char end_packet_type = 0xf1;
     byte_counter = 0;
 }
 
+- (NSNumber *) convertNSDataToFloat:(NSData *)data
+{
+    float d;
+    
+    assert([data length] == sizeof(d));
+    memcpy(&d, [data bytes], sizeof(d));
+    
+    return [[NSNumber alloc] initWithFloat:d];
+}
+
 - (void) process_packet:(NSData *) packetData
 {    
     // Get packet type
@@ -63,18 +73,26 @@ const unsigned char end_packet_type = 0xf1;
     [packetData getBytes:&packet_type_to_inquiry range:NSMakeRange(2, 1)];
 
     int current_uptime = 0;
-    NSNumber* current_uptime_nsnumber;
+    NSNumber *current_uptime_nsnumber;
     
     int uptime;
-    NSNumber* uptime_nsnumber;
+    NSNumber *uptime_nsnumber;
     
     int sequence_number;
-    NSNumber* sequence_number_nsnumber;
+    NSNumber *sequence_number_nsnumber;
+    
+    int record_type;
+    NSNumber *record_type_nsnumber;
+    
+    float sensor_record = 0;
+    NSNumber *sensor_record_nsnumber;
+    NSData *sensor_record_nsdata;
     
     NSData *uid_record;
     
-    NSString* inquiry_packet_type;
+    NSString *inquiry_packet_type;
 
+    int abs_timestamp;
 
     // Decode packet
     NSMutableArray *keys;
@@ -96,6 +114,11 @@ const unsigned char end_packet_type = 0xf1;
             if (packet_type_to_inquiry == 0xaa) {
                 inquiry_packet_type = @"0xaa";
             }
+            
+            if (packet_type_to_inquiry == 0xbb) {
+                inquiry_packet_type = @"0xbb";
+            }
+            
             objects = [NSArray arrayWithObjects:@"0xf0", inquiry_packet_type, current_uptime_nsnumber, nil];
             
             dictionary = [NSDictionary dictionaryWithObjects:objects
@@ -111,8 +134,12 @@ const unsigned char end_packet_type = 0xf1;
             
             keys = [NSArray arrayWithObjects:@"packet_type", @"packet_type_to_inquiry", @"current_uptime", nil];
             
-            if (packet_type_to_inquiry == 0xaa) {
+            if(packet_type_to_inquiry == 0xaa){
                 inquiry_packet_type = @"0xaa";
+            }
+            
+            if(packet_type_to_inquiry == 0xbb){
+                inquiry_packet_type = @"0xbb";
             }
             objects = [NSArray arrayWithObjects:@"0xf1", inquiry_packet_type, current_uptime_nsnumber, nil];
             
@@ -133,7 +160,7 @@ const unsigned char end_packet_type = 0xf1;
             uptime_nsnumber = [NSNumber numberWithInt:uptime];
             
             // Calculate corresponding absolute timestamp
-            int abs_timestamp = curr_uptime_timestamp_since1970 + (uptime - curr_uptime);
+            abs_timestamp = curr_uptime_timestamp_since1970 + (uptime - curr_uptime);
             
             // Parse uid_record
             uid_record = [packetData subdataWithRange:NSMakeRange(10, 8)];
@@ -149,7 +176,38 @@ const unsigned char end_packet_type = 0xf1;
             break;
             
         case imu_packet_type:
-
+            // TODO: need to design packet format
+            // Parse sequence number
+            [packetData getBytes:&sequence_number range:NSMakeRange(2, 4)];
+            sequence_number_nsnumber = [NSNumber numberWithInt:sequence_number];
+            
+            // Parse uptime
+            [packetData getBytes:&uptime range:NSMakeRange(6, 4)];
+            uptime_nsnumber = [NSNumber numberWithInt:uptime];
+                        
+            // Calculate corresponding absolute timestamp
+            abs_timestamp = curr_uptime_timestamp_since1970 + (uptime - curr_uptime);
+            
+            // Parse record_type
+            [packetData getBytes:&record_type range:NSMakeRange(10, 4)];
+            record_type_nsnumber = [NSNumber numberWithInt:record_type];
+            
+            // Parse sensor_record
+            [packetData getBytes:&sensor_record range:NSMakeRange(14, 4)];
+            sensor_record_nsdata = [packetData subdataWithRange:NSMakeRange(14, 4)];
+            //NSLog(@"sensor_record=%f", sensor_record);
+            //sensor_record_nsnumber = [NSNumber numberWithDouble:sensor_record];
+            sensor_record_nsnumber = [self convertNSDataToFloat:sensor_record_nsdata];
+            
+            keys = [NSArray arrayWithObjects:@"packet_type", @"device_uuid", @"sequence_number", @"timestamp", @"record_type", @"sensor_record", nil];
+            
+            objects = [NSArray arrayWithObjects:@"0xbb", device_uuid, sequence_number_nsnumber, [NSNumber numberWithInt:abs_timestamp], record_type_nsnumber, sensor_record_nsnumber, nil];
+            
+            dictionary = [NSDictionary dictionaryWithObjects:objects
+                                                     forKeys:keys];
+            [self.delegate didReceivePacket:@"imu_packet" :dictionary];
+            
+            break;
             break;
             
         default:

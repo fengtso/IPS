@@ -97,6 +97,10 @@
     
     if(btn.tag == 5)
         [state_machine send_data_to_server:@"loc_packet" :nil];
+    
+    if (btn.tag == 6) {
+        [state_machine send_nack_to_sensor:@"0xaa" :0];
+    }
 }
 
 - (IBAction)debugConnectBtnPressed:(id)sender

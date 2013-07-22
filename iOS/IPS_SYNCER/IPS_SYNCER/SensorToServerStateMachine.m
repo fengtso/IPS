@@ -10,7 +10,7 @@
 
 #define IPS_DATA_SERVICE @"0bd51666-e7cb-469b-8e4d-2742f1ba77cc"
 #define IPS_DATA_CHARACTERISTIC @"e7add780-b042-4876-aae1-112855353cc1"
-#define rest_interval 1
+#define rest_interval 20
 #define scan_interval 5
 
 NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
@@ -36,6 +36,11 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
         
         connected_peripheral = nil;
         discovered_peripherals = [NSMutableArray arrayWithCapacity:1];
+        
+        curr_sequence_num = 0;
+        num_retry_nack = 0;
+        transmitting_data_packet_type = @"0xaa";
+        isPacketOutOfOrder = FALSE;
         
         debug_mode = FALSE;
     }
@@ -70,6 +75,26 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     // Create imu_packet information to upload
     if ([packet_type isEqualToString:@"imu_packet"]) {
         
+        NSString *record_type_string = @"none";
+        if ([[data_fields objectForKey:@"record_type"] intValue] == 0) {
+            record_type_string = @"ax";
+        }
+
+        if ([[data_fields objectForKey:@"record_type"] intValue] == 1) {
+            record_type_string = @"ay";
+        }
+        
+        if ([[data_fields objectForKey:@"record_type"] intValue] == 2) {
+            record_type_string = @"az";
+        }
+        
+        keys = [NSArray arrayWithObjects:@"id", @"timestamp",record_type_string, nil];
+        
+        
+        //NSNumber *ips_beacon_id = [[NSNumber alloc] initWithDouble:123.456];
+        
+        objects = [NSArray arrayWithObjects: [data_fields objectForKey:@"device_uuid"], [data_fields objectForKey:@"timestamp"], [data_fields objectForKey:@"sensor_record"],nil];
+
     }
     
     NSDictionary *myDataDictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
@@ -112,8 +137,19 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 {
 }
 
-- (void) send_nack_to_sensor:(NSString *) nack_packet_type :(NSNumber *)sequence_num
+- (void) send_nack_to_sensor:(NSString *) nack_packet_type :(int)sequence_num
 {
+    if ([nack_packet_type isEqualToString:@"0xaa"]) {
+        NSData* data_to_send = [self create_packet:5 :sequence_num];
+        [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+        num_retry_nack++;
+    }
+
+    if ([nack_packet_type isEqualToString:@"0xbb"]) {
+        NSData* data_to_send = [self create_packet:6 :sequence_num];
+        [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+        num_retry_nack++;
+    }
 }
 
 - (void) stop_rest
@@ -183,9 +219,18 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
 - (void) send_inquiry_packet
 {
-    // loc_packet_type
-    NSData* data_to_send = [self create_packet:1 :0];
-    [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+    if ([transmitting_data_packet_type isEqualToString:@"0xaa"]) {
+        // loc_packet_type
+        NSData* data_to_send = [self create_packet:1 :0];
+        [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+    }
+    
+    if ([transmitting_data_packet_type isEqualToString:@"0xbb"]) {
+        // loc_packet_type
+        NSData* data_to_send = [self create_packet:2 :0];
+        [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+    }
+    
 }
 
 - (void) send_ack_start_packet
@@ -198,6 +243,20 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 {
     NSData* data_to_send = [self create_packet:4 :0];
     [self writeCharacteristic:connected_peripheral sUUID:IPS_DATA_SERVICE cUUID:IPS_DATA_CHARACTERISTIC data:data_to_send];
+    
+    
+    if ([transmitting_data_packet_type isEqualToString:@"0xaa"]) {
+        transmitting_data_packet_type = @"0xbb";
+    }
+    else if ([transmitting_data_packet_type isEqualToString:@"0xbb"]) {
+        // 0xa0 means we finish all data packet type transmission
+        transmitting_data_packet_type = @"0xa0";
+    }
+    
+    // Reset params
+    curr_sequence_num = 0;
+    num_retry_nack = 0;
+    isPacketOutOfOrder = FALSE;
 }
 
 - (void) stop_state_machine
@@ -318,9 +377,31 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     
     if ([_curr_state isEqualToString:@"ack_end_packet"]) {
         [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
-        [self send_ack_end_packet];
         
-        [self update_state:@"disconnect"];
+        if (isPacketOutOfOrder) {
+            [self update_state:@"nack_packet"];
+        }
+        else{
+            [self send_ack_end_packet];
+            // Done with loc_packet, start imu_packet transmission
+            if ([transmitting_data_packet_type isEqualToString:@"0xa0"]) {
+                NSLog(@"DISCONNECT");
+
+                [self update_state:@"disconnect"];
+            }
+            else{
+                NSLog(@"INQUIRE FOR 0xbb");
+                [self update_state:@"inquiry"];
+            }
+        }
+        
+        return;
+    }
+    
+    if ([_curr_state isEqualToString:@"nack_packet"]) {
+        [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
+        [self send_nack_to_sensor:transmitting_data_packet_type :curr_sequence_num];
+        curr_sequence_num = 0;
         return;
     }
     
@@ -341,7 +422,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
 -(void)writeCharacteristic:(CBPeripheral *)peripheral sUUID:(NSString *)sUUID cUUID:(NSString *)cUUID data:(NSData *)data {
     // Sends data to BLE peripheral to process HID and send EHIF command to PC
-    //[self.delegate updateSMLog:[NSString stringWithFormat:@"Sending %@ to peripheral",data]];
+    [self.delegate updateSMLog:[NSString stringWithFormat:@"Sending %@ to peripheral",data]];
     for ( CBService *service in peripheral.services ) {
         //[self.delegate updateSMLog:[NSString stringWithFormat:@"Service %@",service.UUID]];
         if ([service.UUID isEqual:[CBUUID UUIDWithString:sUUID]]) {
@@ -357,10 +438,10 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     }
 }
 
-/*  @param packet_type 0:debug_packet 1:inquiry_loc_packet 2:inquiry_imu_packet 3:ack_start 4:ack_end 5:nack
+/*  @param packet_type 0:debug_packet 1:inquiry_loc_packet 2:inquiry_imu_packet 3:ack_start 4:ack_end 5:nack loc 6:nack imu
  *  @param seq_num  sequence number for ack or nack
  */
-- (NSData*) create_packet:(int)packet_type :(NSString*)seq_num
+- (NSData*) create_packet:(int)packet_type :(int)seq_num
 {
     NSMutableData *packet = [[NSMutableData alloc] initWithCapacity:20];
     unsigned char BOF[] = {0xC0};
@@ -422,7 +503,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
             [packet appendBytes:start_packet_type length:1];
             
             // Append sequence number
-            seq_num_intvalue = [seq_num intValue];
+            seq_num_intvalue = seq_num;
             [packet appendBytes:&seq_num_intvalue length:sizeof(int)];
             
             // Append dummy field
@@ -439,7 +520,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
             [packet appendBytes:end_packet_type length:1];
             
             // Append sequence number
-            seq_num_intvalue = [seq_num intValue];
+            seq_num_intvalue = seq_num;
             [packet appendBytes:&seq_num_intvalue length:sizeof(int)];
             
             // Append dummy field
@@ -456,7 +537,24 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
             [packet appendBytes:loc_packet_type length:1];
             
             // Append sequence number
-            seq_num_intvalue = [seq_num intValue];
+            seq_num_intvalue = seq_num;
+            [packet appendBytes:&seq_num_intvalue length:sizeof(int)];
+            
+            // Append dummy field
+            for (int i = 0; i < 12; i++) {
+                [packet appendBytes:dummy_bytes length:1];
+            }
+            break;
+            
+        case 6:
+            // Append packet type
+            [packet appendBytes:nack_packet_type length:1];
+            
+            // Append inquiry packet type
+            [packet appendBytes:imu_packet_type length:1];
+            
+            // Append sequence number
+            seq_num_intvalue = seq_num;
             [packet appendBytes:&seq_num_intvalue length:sizeof(int)];
             
             // Append dummy field
@@ -485,15 +583,40 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     [self.delegate updateSMLog:[NSString stringWithFormat:@"received %@", data_fields]];
     
     if ([packet_type isEqualToString:@"start_packet"]) {
+
         [self update_state:@"ack_start_packet"];
     }
     
     if ([packet_type isEqualToString:@"end_packet"]) {
+    
         [self update_state:@"ack_end_packet"];
+
     }
     
     if ([packet_type isEqualToString:@"loc_packet"] || [packet_type isEqualToString:@"imu_packet"]) {
-        [self send_data_to_server:packet_type :data_fields];
+        //NSLog(@"data_fields:%@", data_fields);
+        
+        if (num_retry_nack > 3) {
+            [self update_state:@"disconnect"];
+        }
+        
+        // Update transmitting packet type
+        transmitting_data_packet_type = [data_fields objectForKey:@"packet_type"];
+        
+        
+        // TODO: remove comment
+        NSLog(@"seq %d, %d", [[data_fields objectForKey:@"sequence_number"] intValue], curr_sequence_num);
+         if ([[data_fields objectForKey:@"sequence_number"] intValue] == curr_sequence_num ) {
+            [self send_data_to_server:packet_type :data_fields];
+             
+            curr_sequence_num++;
+        }
+        else{
+            isPacketOutOfOrder = TRUE;
+            
+            NSLog(@"OUT OF ORDER");
+        }
+        
     }
 }
 
@@ -575,6 +698,11 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
 - (void) disconnectedPeripheral:(CBPeripheral *)peripheral
 {
+    curr_sequence_num = 0;
+    num_retry_nack = 0;
+    transmitting_data_packet_type = @"0xaa";
+    isPacketOutOfOrder = FALSE;
+
     [self.delegate updateSMLog:@"disconnected"];
     [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
 
@@ -623,7 +751,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     if(error != nil)
         return;
     
-    NSLog(@"%@", characteristic.value);
+    //NSLog(@"%@", characteristic.value);
     [packet_parser add_bytes:characteristic.value];
 }
 
