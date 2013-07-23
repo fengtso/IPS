@@ -39,6 +39,7 @@
     int num_retry_nack;
     NSString *transmitting_data_packet_type;
     BOOL isPacketOutOfOrder;
+    BOOL isStateMachineOff;
 }
 
 @property (nonatomic, assign) id<SensorToServerStateMachineDelegate> delegate;

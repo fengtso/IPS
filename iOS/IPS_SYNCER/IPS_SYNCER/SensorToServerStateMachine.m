@@ -10,7 +10,7 @@
 
 #define IPS_DATA_SERVICE @"0bd51666-e7cb-469b-8e4d-2742f1ba77cc"
 #define IPS_DATA_CHARACTERISTIC @"e7add780-b042-4876-aae1-112855353cc1"
-#define rest_interval 20
+#define rest_interval 1
 #define scan_interval 5
 
 NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
@@ -41,6 +41,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
         num_retry_nack = 0;
         transmitting_data_packet_type = @"0xaa";
         isPacketOutOfOrder = FALSE;
+        isStateMachineOff = FALSE;
         
         debug_mode = FALSE;
     }
@@ -88,6 +89,8 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
             record_type_string = @"az";
         }
         
+        // TODO: record_type should include pitch, roll, yaw
+    
         keys = [NSArray arrayWithObjects:@"id", @"timestamp",record_type_string, nil];
         
         
@@ -254,6 +257,11 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     }
     
     // Reset params
+    [self reset_params];
+}
+
+- (void) reset_params
+{
     curr_sequence_num = 0;
     num_retry_nack = 0;
     isPacketOutOfOrder = FALSE;
@@ -290,7 +298,8 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     if ([_curr_state isEqualToString:@"start_state_machine"]) {
         [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
-
+        
+        isStateMachineOff = FALSE;
         [self update_state:@"start_rest"];
     }
     
@@ -298,6 +307,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
         [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
 
+        isStateMachineOff = YES;
         [self stop_state_machine];
     }
     
@@ -698,15 +708,16 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
 - (void) disconnectedPeripheral:(CBPeripheral *)peripheral
 {
-    curr_sequence_num = 0;
-    num_retry_nack = 0;
     transmitting_data_packet_type = @"0xaa";
-    isPacketOutOfOrder = FALSE;
+    [self reset_params];
+
 
     [self.delegate updateSMLog:@"disconnected"];
     [self.delegate updateSMLog:@"+++++++++++++++++++++++++++++\n"];
 
-    [self update_state:@"connect"];
+    if (!isStateMachineOff) {
+        [self update_state:@"connect"];
+    }
 }
 
 
