@@ -23,6 +23,7 @@
     NSString* device_uuid;
     int curr_uptime;
     int curr_uptime_timestamp_since1970;
+    BOOL isLastByeEOF;
 }
 
 - (void) add_bytes:(NSData *) incoming_data;

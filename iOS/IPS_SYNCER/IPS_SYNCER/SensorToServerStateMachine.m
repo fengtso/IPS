@@ -286,7 +286,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
 - (void) update_state:(NSString *)_curr_state
 {
-    //NSLog(@"update_state: %@", _curr_state);
+    NSLog(@"[%@]++++++++++++++++++", _curr_state);
     
     if ([_curr_state isEqualToString:@"start_debug_mode"]) {
         [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];

@@ -17,6 +17,16 @@ const unsigned char imu_packet_type = 0xbb;
 const unsigned char start_packet_type = 0xf0;
 const unsigned char end_packet_type = 0xf1;
 
+- (id)init
+{
+    self = [super init];
+    if(self){
+        isLastByeEOF = TRUE;
+    }
+    
+    return self;
+}
+
 - (void) add_bytes:(NSData *)incoming_data
 {
     //NSLog(@"adding incoming bytes:%@", incoming_data);
@@ -29,11 +39,12 @@ const unsigned char end_packet_type = 0xf1;
         [incoming_data getBytes:&curr_byte range:NSMakeRange(i, 1)];
 
         // Find BOF
-        if ((curr_byte & 0xff) == BOF) {
+        if ((curr_byte & 0xff) == BOF && isLastByeEOF) {
             byte_counter = 0;
         }
-        
+
         // Append byte
+        isLastByeEOF = FALSE;
         rx_buff[byte_counter] = (curr_byte & 0xff);
         byte_counter++;
         
@@ -42,6 +53,8 @@ const unsigned char end_packet_type = 0xf1;
             NSData* packetData = [[NSData alloc] initWithBytes:rx_buff length: RX_BUFF_LEN];
             //NSLog(@"valid packet=%@", packetData);
             [self process_packet:packetData];
+            
+            isLastByeEOF = TRUE;
         }
     }
 }
