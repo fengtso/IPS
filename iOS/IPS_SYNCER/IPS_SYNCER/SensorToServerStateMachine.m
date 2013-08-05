@@ -716,9 +716,10 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     connected_peripheral = peripheral;
     [connected_peripheral setDelegate:self];
     
-    NSString *device_uuid = [[NSString alloc] initWithFormat:@"%@", connected_peripheral.UUID];
-    device_uuid = [device_uuid substringWithRange:NSMakeRange(([device_uuid length] - 36), 36)];
-    
+    //NSString *device_uuid = [[NSString alloc] initWithFormat:@"%@", connected_peripheral.UUID];
+    //device_uuid = [device_uuid substringWithRange:NSMakeRange(([device_uuid length] - 36), 36)];
+    NSString* device_uuid = connected_peripheral.name;
+    NSLog(@"connected_peripheral.name=%@", connected_peripheral.name);
     [packet_parser set_device_uuid: device_uuid];
     [self discover_services];
     
