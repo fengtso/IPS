@@ -48,13 +48,28 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     return self;
 }
 
-- (NSNumber *) convertNSDataToInteger:(NSData *)data
+- (NSNumber *) convertNSDataToDouble:(NSData *)data
 {
-    unsigned long long int d;
-    assert([data length] == sizeof(d));
-    memcpy(&d, [data bytes], sizeof(d));
     
-    return [[NSNumber alloc] initWithUnsignedLongLong:d];
+    const char *bytes = [data bytes];
+    char *reverseBytes = malloc(sizeof(char) * [data length]);
+    int index = [data length] - 1;
+    for (int i = 0; i < [data length]; i++)
+        reverseBytes[index--] = bytes[i];
+    NSData *reversedData = [NSData dataWithBytes:reverseBytes length:[data length]];
+    
+    //unsigned long long int d;
+    //assert([data length] == sizeof(d));
+    //memcpy(&d, [data bytes], sizeof(d));
+    //NSLog(@"converting");
+    //NSLog(@"%@", data);
+
+    double d;
+    assert([reversedData length] == sizeof(d));
+    memcpy(&d, [reversedData bytes], sizeof(d));
+    //NSLog(@"double=%f", d);
+    
+    return [[NSNumber alloc] initWithDouble:d];
 }
 
 - (void) send_data_to_server:(NSString *)packet_type :(NSDictionary *)data_fields
@@ -67,7 +82,10 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     if ([packet_type isEqualToString:@"loc_packet"]) {
         keys = [NSArray arrayWithObjects:@"id", @"timestamp", @"ips_beacon_id", nil];        
         // TODO: location_beacon_id should convert from 8-byte byte array to double?
-        NSNumber *ips_beacon_id = [self convertNSDataToInteger:[data_fields objectForKey:@"uid_record" ]];
+        //NSNumber *ips_beacon_id = [[NSNumber alloc] initWithDouble:[[self convertNSDataToInteger:[data_fields objectForKey:@"uid_record" ]] doubleValue]];
+        
+        NSNumber *ips_beacon_id = [self convertNSDataToDouble:[data_fields objectForKey:@"uid_record"]];
+        
         //NSNumber *ips_beacon_id = [[NSNumber alloc] initWithDouble:123.456];
 
         objects = [NSArray arrayWithObjects: [data_fields objectForKey:@"device_uuid"], [data_fields objectForKey:@"timestamp"], ips_beacon_id, nil];
@@ -104,6 +122,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     NSError* err = nil;
     NSData* myJSONData = [NSJSONSerialization dataWithJSONObject:myDataDictionary
                                                          options:NSJSONWritingPrettyPrinted error:&err];
+    NSLog(@"JSON:");
     NSLog(@"%@",[[NSString alloc]initWithData:myJSONData encoding:NSUTF8StringEncoding]);
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
