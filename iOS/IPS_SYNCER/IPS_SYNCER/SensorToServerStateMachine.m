@@ -10,8 +10,9 @@
 
 #define IPS_DATA_SERVICE @"0bd51666-e7cb-469b-8e4d-2742f1ba77cc"
 #define IPS_DATA_CHARACTERISTIC @"e7add780-b042-4876-aae1-112855353cc1"
-#define rest_interval 1
+#define rest_interval 0
 #define scan_interval 5
+#define connect_interval 5
 
 NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
 
@@ -68,6 +69,7 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     assert([reversedData length] == sizeof(d));
     memcpy(&d, [reversedData bytes], sizeof(d));
     //NSLog(@"double=%f", d);
+    free(reverseBytes);
     
     return [[NSNumber alloc] initWithDouble:d];
 }
@@ -180,6 +182,15 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     timer = nil;
     
     [self update_state:@"stop_rest"];
+}
+
+- (void) stop_connect
+{
+    [timer invalidate];
+    timer = nil;
+    curr_index_of_pheripheral_to_connect++;
+    [self update_state:@"connect"];
+    
 }
 
 - (void) start_scan
@@ -379,6 +390,12 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
         }
         else{
             [self connect];
+            
+            timer = [NSTimer scheduledTimerWithTimeInterval:connect_interval
+                                                     target:self
+                                                   selector:@selector(stop_connect)
+                                                   userInfo:nil
+                                                    repeats:NO];
         }
         
         return;
@@ -387,7 +404,8 @@ NSString *server_url = @"http://cmu-sensor-network.herokuapp.com/sensors";
     if ([_curr_state isEqualToString:@"connected"]) {
         [self.delegate updateSMLog:[NSString stringWithFormat:@"[%@]", _curr_state]];
         curr_index_of_pheripheral_to_connect++;
-        
+        [timer invalidate];
+        timer = nil;
         return;
     }
     
